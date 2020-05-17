@@ -1,0 +1,7 @@
+Blur {
+ size {10 20}
+ name Blur1
+ selected true
+ xpos 413
+ ypos -51
+}
