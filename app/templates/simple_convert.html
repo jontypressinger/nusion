@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Simple Conversion</title>
+
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    </head>
+
+    <body>
+
+      <div class="jumbotron jumbotron-fluid bg-light">
+        <div class="container">
+          <h1 class="display-4" align="center">Simple Conversion</h1>
+          <p class="lead" align="center">Enter a number and watch it magically get doubled!</p>
+        </div>
+      </div>
+
+      <div id="converter-container" class="container">
+        <div class="row justify-content-center">
+
+          <!-- Input column (left) -->
+          <div class="col border bg-light">
+              Input a number:
+            <br>
+                  <form action="" id="textform" method="post">
+                      <textarea name="input" rows="4" cols="50" class='form-control'></textarea> <!-- Input text box -->
+                      <br>
+                      <input type="submit" name="submit" value="Convert" class="btn btn-primary"> <!-- "Clear" button -->
+                      <input type="submit" name="submit" value="Clear" class="btn btn-secondary"> <!-- "Convert" button -->
+                  </form>
+          </div>
+
+          <!-- Ouput column (right) -->
+          <div class="col border bg-light">
+              Result:
+                  <form action="" id="textform">
+                      <textarea name="output" rows="4" cols="50" class='form-control'>{{result}}</textarea>  <!-- Input text box -->
+                      <br>
+                      <input type="button" name="copy" value="Copy to Clipboard" class="btn btn-success"> <!-- "Copy to Clipboard" button -->
+                  </form>
+          </div>
+
+        </div>
+      </div> <!-- #converter-container -->
+
+
+
+
+    </body>
+</html>
