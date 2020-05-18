@@ -1,0 +1,93 @@
+body {
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.grid-hero {
+    padding-top: 75px;
+    padding-bottom: 30px;
+}
+
+.grid-hero span {
+    color: #5755d9;
+    text-decoration: underline;
+}
+
+.subtitle {
+    font-size: 1em;
+    font-weight: inherit;
+    font-style: oblique;
+}
+
+.panel-title {
+    font-weight: 500;
+}
+
+#input-node {
+    height: 220px;
+}
+
+#output-node {
+    height:220px;
+}
+
+#reader-view .modal-container {
+    max-height: 100%;
+}
+
+.modal-body .content {
+    white-space: pre-line;
+}
+
+.modal-body .content pre {
+    white-space: pre-line;
+    font-size: 0.9em;
+    padding-left: 15px;
+}
+
+.form-label {
+    padding-left: 10px;
+}
+
+.form-input[readonly] {
+    background-color: #fcfcfc;
+}
+
+footer {
+    font-size: 0.9em;
+    margin-top:30px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+footer a {
+    color: #c8c8ff!important;
+}
+
+@media (max-width: 599px) {
+    .grid-hero {
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    .grid-hero h1 {
+        font-size: 1.7em;
+    }
+
+    .panel {
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 600px) {
+    .grid-hero {
+        margin-bottom: 20px;
+    }
+
+    footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+}

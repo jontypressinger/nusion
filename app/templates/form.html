@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nusion Converter</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/spectre.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+<body>
+
+    <div class="section bg-gray">
+        <div class="grid-hero container grid-lg text-center" id="overview">
+            <h1>Nusion Converter</h1>
+            <h2 class="subtitle">Convert nodes between The Foundry's <strong>Nuke</strong> and Blackmagic <strong>Fusion</strong>!</h2>
+        </div>
+    </div>
+    <div class="section section-features">
+        <div class="container grid-lg">
+            <div class="columns">
+                <div class="column col-6 col-xs-12">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">Input Node</div>
+                        </div>
+                        <div class="panel-nav">
+                            <!-- navigation components: tabs, breadcrumbs or pagination -->
+                        </div>
+                        <div class="panel-body">
+                            <textarea name="text" class="form-input" id="input-node"
+                                placeholder="Paste Nuke node here"></textarea>
+                        </div>
+                        <div class="panel-footer">
+                            <button id="btn-convert" class="btn btn-primary" value="Convert">Convert</button>
+                            <button id="btn-clear" class="btn btn-secondary" value="Clear">Clear</button>
+
+                            <button id="btn-list" class="btn btn-link">Supported Nodes</button>
+                            <button id="btn-about" class="btn btn-link">About</button>
+                          </div>
+                    </div>
+                </div>
+                <div class="column col-6 col-xs-12">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">Output Node</div>
+                        </div>
+                        <div class="panel-nav">
+                            <!-- navigation components: tabs, breadcrumbs or pagination -->
+                        </div>
+                        <div class="panel-body">
+                            <textarea class="form-input" id="output-node"
+                                placeholder="Fusion node will appear here"></textarea>
+                        </div>
+                        <div class="panel-footer">
+                            <button id="btn-copy" class="btn btn-success" value="Copy">Copy to Clipboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About modal -->
+    <div id="modal-about" class="modal modal">
+        <a class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+            <div class="modal-header">
+                <a class="btn btn-clear float-right btn-about-close" aria-label="Close"></a>
+                <div class="modal-title h5">About</div>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                  Project Roadmap:
+                  <pre>
+                    - Add more supported nodes
+                    - Multiple node support
+                    - Keyframes
+                    - Full script conversion
+                  </pre>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-link btn-about-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supported Nodes modal -->
+    <div id="modal-list" class="modal modal">
+        <a class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+            <div class="modal-header">
+                <a class="btn btn-clear float-right btn-about-close" aria-label="Close"></a>
+                <div class="modal-title h5">Supported Nodes</div>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                  <strong>Nuke to Fusion:</strong>
+                  <pre>
+                    Blur
+                    ColorCorrect (Coming soon!)
+                    Transform (Coming soon!)
+                  </pre>
+
+                  <strong>Fusion to Nuke:</strong>
+                  <pre>
+                    None yet! :)
+                  </pre>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-link btn-list-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="section section-footer bg-primary">
+        <div class="docs-footer container grid-lg text-center">
+            <i>
+                Check out this project on <a href="https://github.com/ontyj/nusion">GitHub</a>, or
+                read about my other projects at <a href="http://jontypressinger.co.za/">jontypressinger.co.za</a>! · <span
+                    class="version">v0.0.1</span>
+            </i>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</html>
