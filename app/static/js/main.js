@@ -39,7 +39,25 @@ var App = {
         });
     },
 
+    convertNode: function(inputNode, fromSoftware) {
+        return fetch(
+            App.routes.convert,
+            {
+                headers: {'Content-Type': 'application/json'},
+                method: "POST",
+                body: JSON.stringify({ "data": inputNode, "fromSoftware": fromSoftware })
+            }
+        )
+        .then( response => response.json() )
+        .then( function(response) {
+                App.components.txtOutputNode.value = response["data"];
+        });
+    },
+
     onConvertClicked: function() {
+      App.convertNode(
+          App.components.txtInputNode.value, "nuke"
+      )
 
     },
 

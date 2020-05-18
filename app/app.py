@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -11,9 +11,9 @@ def hello():
 
 @app.route("/convert", methods=["POST"])
 def convert():
-
-
-    return "Test"
+    response = request.get_json()
+    result = response["data"]
+    return jsonify({"data": result})
 
 
 if __name__ == '__main__':
