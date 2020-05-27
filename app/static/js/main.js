@@ -12,7 +12,8 @@ var App = {
         txtInputNode: document.getElementById("input-node"),
         txtOutputNode: document.getElementById("output-node"),
         modalAbout: document.getElementById("modal-about"),
-        modalList: document.getElementById("modal-list")
+        modalList: document.getElementById("modal-list"),
+        body: document.body
     },
 
     routes: {
@@ -29,6 +30,7 @@ var App = {
         App.components.btnCopy.addEventListener("click", App.onCopyClicked);
         App.components.btnAbout.addEventListener("click", App.onAboutClicked);
         App.components.btnList.addEventListener("click", App.onListClicked);
+        App.components.body.addEventListener("click", App.onBodyClicked);
 
         App.components.btnAboutClose.forEach(item => {
             item.addEventListener("click", App.onAboutCloseClicked)
@@ -62,6 +64,7 @@ var App = {
     },
 
     onClearClicked: function() {
+        App.components.txtOutputNode.value = "";
         App.components.txtInputNode.value = "";
         App.components.txtInputNode.focus();
     },
@@ -93,8 +96,14 @@ var App = {
         App.components.modalList.classList.remove("active");
     },
 
-}
+    onBodyClicked: function() {
+      console.log(event.target)
+      if(!event.target.closest(App.components.modalList).length && !event.target.is(App.components.modalList)) {
+        App.components.modalList.classList.remove("active");
+      }
+    },
 
+}
 
 // Copies a string to the clipboard. Must be called from within an
 // event handler such as click. May return false if it failed, but
