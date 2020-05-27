@@ -97,10 +97,11 @@ var App = {
     },
 
     onBodyClicked: function() {
-      console.log(event.target)
-      if(!event.target.closest(App.components.modalList).length && !event.target.is(App.components.modalList)) {
-        App.components.modalList.classList.remove("active");
-      }
+        const modal = App.components.modalList;
+
+        if (modal && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
     },
 
 }
