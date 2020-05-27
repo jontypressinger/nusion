@@ -96,11 +96,11 @@ var App = {
         App.components.modalList.classList.remove("active");
     },
 
-    onBodyClicked: function() {
-        const modal = App.components.modalList;
+    onBodyClicked: function(event) {
+        const { modalList, btnList } = App.components;
 
-        if (modal && modal.classList.contains('active')) {
-            modal.classList.remove('active');
+        if (modalList && modalList.classList.contains('active') && event.target !== btnList) {
+            modalList.classList.remove('active');
         }
     },
 
