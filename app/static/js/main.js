@@ -98,9 +98,14 @@ var App = {
 
     onBodyClicked: function(event) {
         const { modalList, btnList } = App.components;
+        const { modalAbout, btnAbout } = App.components;
 
         if (modalList && modalList.classList.contains('active') && event.target !== btnList) {
             modalList.classList.remove('active');
+        }
+
+        if (modalAbout && modalAbout.classList.contains('active') && event.target !== btnAbout) {
+            modalAbout.classList.remove('active');
         }
     },
 
