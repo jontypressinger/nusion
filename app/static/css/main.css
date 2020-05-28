@@ -27,7 +27,11 @@ body {
 }
 
 #output-node {
-    height:270px;
+    height:280px;
+}
+
+textarea { 
+    resize: none; 
 }
 
 #reader-view .modal-container {
@@ -90,4 +94,17 @@ footer a {
         bottom: 0;
         overflow: hidden;
     }
+}
+
+.columns {
+    padding: .4rem 0;
+}
+
+.input-group-resolution {
+    display: flex;
+    align-items: center;
+}
+
+.input-group-resolution--pad {
+    padding: .2rem;
 }
