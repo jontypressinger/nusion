@@ -5,6 +5,8 @@ var App = {
         btnConvert: document.getElementById("btn-convert"),
         btnClear: document.getElementById("btn-clear"),
         btnCopy: document.getElementById("btn-copy"),
+        btnResHelp: document.getElementById("btn-res-help"),
+        btnResHelpClose: document.querySelectorAll(".btn-res-help-close"),
         btnAbout: document.getElementById("btn-about"),
         btnAboutClose: document.querySelectorAll(".btn-about-close"),
         btnList: document.getElementById("btn-list"),
@@ -13,6 +15,7 @@ var App = {
         txtOutputNode: document.getElementById("output-node"),
         modalAbout: document.getElementById("modal-about"),
         modalList: document.getElementById("modal-list"),
+        modalResHelp: document.getElementById("modal-res-help"),
         body: document.body
     },
 
@@ -28,9 +31,14 @@ var App = {
         App.components.btnConvert.addEventListener("click", App.onConvertClicked);
         App.components.btnClear.addEventListener("click", App.onClearClicked);
         App.components.btnCopy.addEventListener("click", App.onCopyClicked);
+        App.components.btnResHelp.addEventListener("click", App.onResHelpClicked);
         App.components.btnAbout.addEventListener("click", App.onAboutClicked);
         App.components.btnList.addEventListener("click", App.onListClicked);
         App.components.body.addEventListener("click", App.onBodyClicked);
+
+        App.components.btnResHelpClose.forEach(item => {
+            item.addEventListener("click", App.onResHelpCloseClicked)
+        });
 
         App.components.btnAboutClose.forEach(item => {
             item.addEventListener("click", App.onAboutCloseClicked)
@@ -96,10 +104,21 @@ var App = {
         App.components.modalList.classList.remove("active");
     },
 
+    onResHelpClicked: function() {
+        App.components.modalResHelp.classList.add("active");
+        event.preventDefault();
+    },
+
+    onResHelpCloseClicked: function() {
+        App.components.modalResHelp.classList.remove("active");
+    },
+
     onBodyClicked: function() {
+      console.log(event.target)
         if (event.target.classList.contains('modal-overlay')) {
-            App.components.modalList.classList.remove('active');
-            App.components.modalAbout.classList.remove('active');
+              App.components.modalList.classList.remove('active');
+              App.components.modalAbout.classList.remove('active');
+              App.components.modalResHelp.classList.remove('active');
         }
     },
 

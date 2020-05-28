@@ -32,9 +32,25 @@
                             <!-- navigation components: tabs, breadcrumbs or pagination -->
                         </div>
                         <div class="panel-body">
+                          <form class="form-horizontal">
+                            <div class="form-group">
+                              <div class="container">
+                                <div class="columns">
+                                  <div class="input-group">
+                                    <label class="form-label" for="input-width input-height">Resolution:</label>
+                                    <button name="spacer" class="btn btn-link disabled"></button>
+                                    <input type="number" class="form-input" id="input-width" value=1920 placeholder="Width">
+                                    <button class="btn btn-link disabled">x</button>
+                                    <input type="number" class="form-input" id="input-height" value=1080 placeholder="Height">
+                                    <button id="btn-res-help" class="btn btn-link">[?]</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
                             <textarea name="text" class="form-input" id="input-node"
                                 placeholder="Paste Nuke node here"></textarea>
                         </div>
+                      </div>
                         <div class="panel-footer">
                             <button id="btn-convert" class="btn btn-primary" value="Convert">Convert</button>
                             <button id="btn-clear" class="btn btn-secondary" value="Clear">Clear</button>
@@ -115,6 +131,26 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-link btn-list-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resolution Help Modal -->
+    <div id="modal-res-help" class="modal">
+        <a class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+            <div class="modal-header">
+                <a class="btn btn-clear float-right btn-res-help-close" aria-label="Close"></a>
+                <div class="modal-title h5"></div>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                  Why do we need resolution?
+
+                  Blah blah
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-link btn-res-help-close">Close</button>
             </div>
         </div>
     </div>
