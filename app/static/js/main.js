@@ -13,6 +13,8 @@ var App = {
         btnListClose: document.querySelectorAll(".btn-list-close"),
         txtInputNode: document.getElementById("input-node"),
         txtOutputNode: document.getElementById("output-node"),
+        txtInputWidth: document.getElementById("input-width"),
+        txtInputHeight: document.getElementById("input-height"),
         modalAbout: document.getElementById("modal-about"),
         modalList: document.getElementById("modal-list"),
         modalResHelp: document.getElementById("modal-res-help"),
@@ -49,24 +51,27 @@ var App = {
         });
     },
 
-    convertNode: function(inputNode, fromSoftware) {
+    convertNode: function(inputNode, resWidth, resHeight, fromSoftware) {
         return fetch(
             App.routes.convert,
             {
                 headers: {'Content-Type': 'application/json'},
                 method: "POST",
-                body: JSON.stringify({ "data": inputNode, "fromSoftware": fromSoftware })
+                body: JSON.stringify({ "data": inputNode, "width": resWidth, "height": resHeight, "fromSoftware": fromSoftware })
             }
         )
         .then( response => response.json() )
         .then( function(response) {
-                App.components.txtOutputNode.value = response["data"];
+                App.components.txtOutputNode.value = response["result"];
         });
     },
 
     onConvertClicked: function() {
       App.convertNode(
-          App.components.txtInputNode.value, "nuke"
+          App.components.txtInputNode.value,
+          App.components.txtInputWidth.value,
+          App.components.txtInputHeight.value,
+          "nuke"
       )
 
     },
@@ -114,7 +119,6 @@ var App = {
     },
 
     onBodyClicked: function() {
-      console.log(event.target)
         if (event.target.classList.contains('modal-overlay')) {
               App.components.modalList.classList.remove('active');
               App.components.modalAbout.classList.remove('active');

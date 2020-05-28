@@ -12,8 +12,8 @@ def hello():
 @app.route("/convert", methods=["POST"])
 def convert():
     response = request.get_json()
-    result = response["data"]
-    return jsonify({"data": result})
+    result = "Resolution is: {0}x{1}\nData: {2}".format(response["width"], response["height"], response["data"])
+    return jsonify({"result": result})
 
 
 if __name__ == '__main__':
