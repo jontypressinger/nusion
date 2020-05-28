@@ -91,3 +91,16 @@ footer a {
         overflow: hidden;
     }
 }
+
+.columns {
+    padding: .4rem 0;
+}
+
+.input-group-resolution {
+    display: flex;
+    align-items: center;
+}
+
+.input-group-resolution--pad {
+    padding: .2rem;
+}

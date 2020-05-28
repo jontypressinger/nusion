@@ -14,13 +14,14 @@
         rel="stylesheet">
 
 <body>
-    <div class="section bg-gray">
+    <section class="bg-gray">
         <div class="grid-hero container grid-lg text-center" id="overview">
             <h1>Nusion Converter</h1>
             <h2 class="subtitle">Convert nodes between The Foundry's <strong>Nuke</strong> and Blackmagic <strong>Fusion</strong>!</h2>
         </div>
-    </div>
-    <div class="section section-features">
+    </section>
+
+    <section>
         <div class="container grid-lg">
             <div class="columns">
                 <div class="column col-6 col-xs-12">
@@ -28,59 +29,67 @@
                         <div class="panel-header">
                             <div class="panel-title">Nuke</div>
                         </div>
-                        <div class="panel-nav">
-                            <!-- navigation components: tabs, breadcrumbs or pagination -->
-                        </div>
+
                         <div class="panel-body">
-                          <form class="form-horizontal">
-                            <div class="form-group">
-                              <div class="container">
-                                <div class="columns">
-                                  <div class="input-group">
-                                    <label class="form-label" for="input-width input-height">Resolution:</label>
-                                    <button name="spacer" class="btn btn-link disabled"></button>
-                                    <input type="number" class="form-input" id="input-width" value=1920 placeholder="Width">
-                                    <button class="btn btn-link disabled">x</button>
-                                    <input type="number" class="form-input" id="input-height" value=1080 placeholder="Height">
-                                    <button id="btn-res-help" class="btn btn-link">[?]</button>
-                                  </div>
+                            <div class="columns">
+                                <div class="column col-12">
+                                    <div class="input-group-resolution">
+                                        <div class="input-group-resolution__label input-group-resolution--pad">
+                                            <label class="form-label" for="input-width">Resolution:</label>
+                                        </div>
+                                        <div class="input-group-resolution__input input-group-resolution--pad">
+                                            <input type="number" class="form-input" id="input-width" value=1920 placeholder="Width">    
+                                        </div>
+                                        <div class="input-group-resolution__cross input-group-resolution--pad">
+                                            x
+                                        </div>
+                                        <div class="input-group-resolution__input input-group-resolution--pad">
+                                            <input type="number" class="form-input" id="input-height" value=1080 placeholder="Height">
+                                        </div>
+                                        <div class="input-group-resolution__button input-group-resolution--pad input-group-resolution--justify-end">
+                                            <button id="btn-res-help" class="btn btn-link">[?]</button>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
-                            </form>
-                            <textarea name="text" class="form-input" id="input-node"
-                                placeholder="Paste Nuke node here"></textarea>
+                            </div>
+                            <div class="columns">
+                                <div class="column col-12">
+                                    <textarea name="text" class="form-input" id="input-node" placeholder="Paste Nuke node here"></textarea>
+                                </div>
+                            </div>
                         </div>
-                      </div>
+                    
                         <div class="panel-footer">
                             <button id="btn-convert" class="btn btn-primary" value="Convert">Convert</button>
                             <button id="btn-clear" class="btn btn-secondary" value="Clear">Clear</button>
 
                             <button id="btn-list" class="btn btn-link">Supported Nodes</button>
                             <button id="btn-about" class="btn btn-link">About</button>
-                          </div>
+                        </div>
                     </div>
                 </div>
+                
+                
                 <div class="column col-6 col-xs-12">
                     <div class="panel">
                         <div class="panel-header">
                             <div class="panel-title">Fusion</div>
                         </div>
-                        <div class="panel-nav">
-                            <!-- navigation components: tabs, breadcrumbs or pagination -->
-                        </div>
+                       
                         <div class="panel-body">
-                            <textarea class="form-input" id="output-node"
-                                placeholder="Fusion node will appear here"></textarea>
+                            <textarea class="form-input" id="output-node" placeholder="Fusion node will appear here"></textarea>
                         </div>
+
                         <div class="panel-footer">
                             <button id="btn-copy" class="btn btn-success" value="Copy">Copy to Clipboard</button>
                         </div>
-                    </div>
+                    </div> 
                 </div>
+
             </div>
         </div>
-    </div>
-
+    </section>
+  
     <!-- About modal -->
     <div id="modal-about" class="modal">
         <a class="modal-overlay" aria-label="Close"></a>
