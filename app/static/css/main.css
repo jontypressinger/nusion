@@ -27,7 +27,11 @@ body {
 }
 
 #output-node {
-    height:270px;
+    height:280px;
+}
+
+textarea { 
+    resize: none; 
 }
 
 #reader-view .modal-container {
