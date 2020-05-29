@@ -1,3 +1,6 @@
+set cut_paste_input [stack 0]
+version 11.3 v6
+push $cut_paste_input
 Blur {
  size {10 20}
  name Blur1
