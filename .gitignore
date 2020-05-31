@@ -5,3 +5,4 @@ venv/
 **/notepad.py
 .vscode
 node_modules
+.idea/

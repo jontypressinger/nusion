@@ -3,16 +3,19 @@ Import all effects from the nodes folder to allow them to be easily called from
 other scripts using the node's effect type attribute.
 """
 
-from nodes.nuke_to_fusion import    Blur, \
-                                    ColorCorrect
+from nusion.model.nodes.nuke_to_fusion import   BaseAttributes, \
+                                                Blur, \
+                                                ColorCorrect
 
-def convert(node_effect, effect_attribs):
+def convert(node):
     """ List of effect conversion functions """
 
-    if node_effect == "Blur":
-        return Blur.convert(effect_attribs)
+    base_attribs = BaseAttributes.convert(node)
 
-    if node_effect == "ColorCorrect":
-        return ColorCorrect.convert(effect_attribs)
+    if node.effect == "Blur":
+        return base_attribs, Blur.convert(node)
 
-    return "Node effect type not found: {0}".format(node_effect)
+    if node.effect == "ColorCorrect":
+        return base_attribs, ColorCorrect.convert(node)
+
+    raise ValueError("Node effect '{0}' not currently supported.".format(node.effect))
