@@ -53,8 +53,6 @@ var App = {
 
     onClearClicked: function(e) {
         e.preventDefault();
-        App.components.txtInputWidth.value = "";
-        App.components.txtInputHeight.value = "";
         App.components.txtOutputNode.value = "";
         App.components.txtInputNode.value = "";
         App.components.txtInputNode.focus();
