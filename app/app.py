@@ -1,4 +1,8 @@
 from flask import Flask, render_template, request, jsonify
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join('..', 'nusion')))
+from nusion.model import nusion
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -12,7 +16,12 @@ def hello():
 @app.route("/convert", methods=["POST"])
 def convert():
     response = request.get_json()
-    result = "Resolution is: {0}x{1}\nData: {2}".format(response["width"], response["height"], response["data"])
+    project = nusion.Nusion(response)
+    try:
+        result = project.convert_copy_paste()
+    except ValueError as e:
+        result = "Error: {}".format(e)
+        
     return jsonify({"result": result})
 
 
