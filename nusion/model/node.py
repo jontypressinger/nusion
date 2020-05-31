@@ -13,16 +13,37 @@ class Node():
         self.resolution = resolution
         self.root_width = resolution["w"]
         self.root_height = resolution["h"]
+        if self.software == "nuke":
+            self.name = base_attribs["name"]
 
     def to_fusion(self):
         """
-        Convert the nuke node to a fusion node.
+        Convert the nuke node class to a fusion node class.
         """
         if self.software != "nuke":
             raise ValueError("Expected node from 'nuke' got '{}' instead".format(self.software))
 
         self.base_attribs, self.effect_attribs = nuke_to_fusion.convert(self)
         self.software = "fusion"
+
+    def output(self):
+        """
+        Get's the node class ready for output in relevant software.
+        """
+        if self.software == "fusion":
+            output_effect_attribs = ""
+            output_base_attribs = ""
+            for i, effect in enumerate(self.effect_attribs):
+                output_effect_attribs += f"{effect} = {self.effect_attribs[effect]},"
+                if i != len(self.effect_attribs)-1: #Add newline character if this is not the last effect attribute.
+                    output_effect_attribs += "\n"
+            for i, attrib in enumerate(self.base_attribs):
+                output_base_attribs += f"{self.base_attribs[attrib]},"
+                if i != len(self.base_attribs)-1: #Add newline character if this is not the last base attribute.
+                    output_base_attribs += "\n"
+
+            node_output = f"{self.name} = {self.effect} {{\nInputs = {{\n{output_effect_attribs}\n}},\n{output_base_attribs}\n}}"
+            return node_output
 
     @staticmethod
     def from_nuke(node_string, resolution):

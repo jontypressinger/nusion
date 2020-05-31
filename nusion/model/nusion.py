@@ -13,5 +13,5 @@ class Nusion:
             if re.match("[A-Z]\w+\s\{", line):
                 node = Node.from_nuke(raw_lines[i:], self.resolution)
                 node.to_fusion()
-
-                #return()
+                result = f"{{\nTools = ordered() {{\n{node.output()}\n}}\n}}"
+                return(result)
