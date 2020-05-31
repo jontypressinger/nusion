@@ -1,0 +1,11 @@
+{
+	Tools = ordered() {
+		Blur3 = Blur {
+			Inputs = {
+				XBlurSize = Input { Value = 10, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 935, 313.5 } },
+		}
+	},
+	ActiveTool = "Blur3"
+}
