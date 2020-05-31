@@ -1,0 +1,26 @@
+{
+  "name": "nusion",
+  "version": "0.0.1",
+  "description": "Nusion Converter UI",
+  "main": "app/static/js/index.js",
+  "scripts": {
+    "start": "sass --watch ./app/static/css/main.scss ./app/static/css/main.css",
+    "build": "sass ./app/static/css/main.scss ./app/static/css/main.css --style compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ontyj/nusion.git"
+  },
+  "keywords": [
+    "nusion"
+  ],
+  "author": "jontypressinger.co.za",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ontyj/nusion/issues"
+  },
+  "homepage": "https://github.com/ontyj/nusion#readme",
+  "devDependencies": {
+    "sass": "^1.26.7"
+  }
+}

@@ -2,4 +2,7 @@ venv/
 **/__pycache__/
 *.pyo
 *.pyc
+**/notepad.py
+.vscode
+node_modules
 .idea/

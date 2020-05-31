@@ -1,110 +1,43 @@
-body {
-    font-family: 'Fira Sans', sans-serif;
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400");
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
 }
 
-.grid-hero {
-    padding-top: 75px;
-    padding-bottom: 30px;
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
-.grid-hero span {
-    color: #5755d9;
-    text-decoration: underline;
+.nu-hero.uk-cover-container h1 {
+  font-size: 3.2rem;
+  letter-spacing: 5px;
+  font-family: "Raleway", sans-serif;
+}
+.nu-hero.uk-cover-container p {
+  font-family: "Raleway", sans-serif;
+}
+.nu-hero.uk-cover-container .uk-position-cover {
+  z-index: 1;
+}
+.nu-hero.uk-cover-container .uk-container {
+  width: 200px;
 }
 
-.subtitle {
-    font-size: 1em;
-    font-weight: inherit;
-    font-style: oblique;
+.nu-cursor-pointer {
+  cursor: pointer;
 }
 
-.panel-title {
-    font-weight: 500;
+.nu-position-bottom-fixed {
+  position: fixed !important;
+  max-width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-#input-node {
-    height: 220px;
+.nu-resize-none {
+  resize: none;
 }
 
-#output-node {
-    height:280px;
-}
-
-textarea { 
-    resize: none; 
-}
-
-#reader-view .modal-container {
-    max-height: 100%;
-}
-
-.modal-body .content {
-    white-space: pre-line;
-}
-
-.modal-body .content pre {
-    white-space: pre-line;
-    font-size: 0.9em;
-    padding-left: 15px;
-}
-
-.form-label {
-    padding-left: 10px;
-}
-
-.form-input[readonly] {
-    background-color: #fcfcfc;
-}
-
-footer {
-    font-size: 0.9em;
-    margin-top:30px;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    width: 100%;
-}
-
-footer a {
-    color: #c8c8ff!important;
-}
-
-@media (max-width: 599px) {
-    .grid-hero {
-        padding-top: 20px;
-        padding-bottom: 10px;
-    }
-
-    .grid-hero h1 {
-        font-size: 1.7em;
-    }
-
-    .panel {
-        margin-top: 10px;
-    }
-}
-
-@media (min-width: 600px) {
-    .grid-hero {
-        margin-bottom: 20px;
-    }
-
-    footer {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        overflow: hidden;
-    }
-}
-
-.columns {
-    padding: .4rem 0;
-}
-
-.input-group-resolution {
-    display: flex;
-    align-items: center;
-}
-
-.input-group-resolution--pad {
-    padding: .2rem;
-}
+/*# sourceMappingURL=main.css.map */
