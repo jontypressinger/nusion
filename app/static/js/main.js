@@ -2,22 +2,13 @@
 
 var App = {
     components: {
-        btnConvert: document.getElementById("btn-convert"),
-        btnClear: document.getElementById("btn-clear"),
-        btnCopy: document.getElementById("btn-copy"),
-        btnResHelp: document.getElementById("btn-res-help"),
-        btnResHelpClose: document.querySelectorAll(".btn-res-help-close"),
-        btnAbout: document.getElementById("btn-about"),
-        btnAboutClose: document.querySelectorAll(".btn-about-close"),
-        btnList: document.getElementById("btn-list"),
-        btnListClose: document.querySelectorAll(".btn-list-close"),
-        txtInputNode: document.getElementById("input-node"),
-        txtOutputNode: document.getElementById("output-node"),
+        btnConvert: document.getElementById("btn-convert"), //
+        btnClear: document.getElementById("btn-clear"), //
+        btnCopy: document.getElementById("btn-copy"), //
+        txtInputNode: document.getElementById("input-node"), //
+        txtOutputNode: document.getElementById("output-node"), //
         txtInputWidth: document.getElementById("input-width"),
         txtInputHeight: document.getElementById("input-height"),
-        modalAbout: document.getElementById("modal-about"),
-        modalList: document.getElementById("modal-list"),
-        modalResHelp: document.getElementById("modal-res-help"),
         body: document.body
     },
 
@@ -33,22 +24,6 @@ var App = {
         App.components.btnConvert.addEventListener("click", App.onConvertClicked);
         App.components.btnClear.addEventListener("click", App.onClearClicked);
         App.components.btnCopy.addEventListener("click", App.onCopyClicked);
-        App.components.btnResHelp.addEventListener("click", App.onResHelpClicked);
-        App.components.btnAbout.addEventListener("click", App.onAboutClicked);
-        App.components.btnList.addEventListener("click", App.onListClicked);
-        App.components.body.addEventListener("click", App.onBodyClicked);
-
-        App.components.btnResHelpClose.forEach(item => {
-            item.addEventListener("click", App.onResHelpCloseClicked)
-        });
-
-        App.components.btnAboutClose.forEach(item => {
-            item.addEventListener("click", App.onAboutCloseClicked)
-        });
-
-        App.components.btnListClose.forEach(item => {
-            item.addEventListener("click", App.onListCloseClicked)
-        });
     },
 
     convertNode: function(inputNode, resWidth, resHeight, fromSoftware) {
@@ -66,66 +41,36 @@ var App = {
         });
     },
 
-    onConvertClicked: function() {
-      App.convertNode(
-          App.components.txtInputNode.value,
-          App.components.txtInputWidth.value,
-          App.components.txtInputHeight.value,
-          "nuke"
-      )
-
+    onConvertClicked: function(e) {
+        e.preventDefault();
+        App.convertNode(
+            App.components.txtInputNode.value,
+            App.components.txtInputWidth.value,
+            App.components.txtInputHeight.value,
+            "nuke"
+        );
     },
 
-    onClearClicked: function() {
+    onClearClicked: function(e) {
+        e.preventDefault();
+        App.components.txtInputWidth.value = "";
+        App.components.txtInputHeight.value = "";
         App.components.txtOutputNode.value = "";
         App.components.txtInputNode.value = "";
         App.components.txtInputNode.focus();
     },
 
-    onCopyClicked: function() {
+    onCopyClicked: function(e) {
+        e.preventDefault();
         copyToClipboard(App.components.txtOutputNode.value);
 
         // Change button text for user feedback
         const originalText = App.components.btnCopy.innerHTML;
-        App.components.btnCopy.innerHTML = "Copied!";
+        App.components.btnCopy.innerHTML = "Copied";
         setTimeout(function() {
             App.components.btnCopy.innerHTML = originalText;
         }, 2000)
     },
-
-    onAboutClicked: function() {
-        App.components.modalAbout.classList.add("active");
-    },
-
-    onAboutCloseClicked: function() {
-        App.components.modalAbout.classList.remove("active");
-    },
-
-    onListClicked: function() {
-        App.components.modalList.classList.add("active");
-    },
-
-    onListCloseClicked: function() {
-        App.components.modalList.classList.remove("active");
-    },
-
-    onResHelpClicked: function() {
-        App.components.modalResHelp.classList.add("active");
-        event.preventDefault();
-    },
-
-    onResHelpCloseClicked: function() {
-        App.components.modalResHelp.classList.remove("active");
-    },
-
-    onBodyClicked: function() {
-        if (event.target.classList.contains('modal-overlay')) {
-              App.components.modalList.classList.remove('active');
-              App.components.modalAbout.classList.remove('active');
-              App.components.modalResHelp.classList.remove('active');
-        }
-    },
-
 }
 
 // Copies a string to the clipboard. Must be called from within an

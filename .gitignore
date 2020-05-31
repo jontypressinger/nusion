@@ -3,3 +3,5 @@ venv/
 *.pyo
 *.pyc
 **/notepad.py
+.vscode
+node_modules

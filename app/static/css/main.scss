@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400");
+
+// resets
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+// layout
+
+.nu-hero.uk-cover-container {
+    h1 {
+        font-size: 3.2rem;
+        letter-spacing: 5px;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    p {
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .uk-position-cover {
+        z-index: 1;
+    }
+
+    .uk-container {
+        width: 200px;
+    }
+}
+
+// utility
+
+.nu-cursor-pointer {
+    cursor: pointer;
+}
+
+.nu-position-bottom-fixed {
+    position: fixed !important;
+    max-width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.nu-resize-none {
+    resize: none;
+}
