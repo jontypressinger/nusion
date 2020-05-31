@@ -1,5 +1,5 @@
 
-def convert(nuke_base_attribs):
+def convert(node):
     """ Convert Nuke Base Attributes to Fusion Base Attributes
 
     Returns:
@@ -7,7 +7,15 @@ def convert(nuke_base_attribs):
     """
     fusion_base_attribs = {}
 
-    fusion_base_attribs[0] = "This is currently a placeholder effect."
+    for knob in node.base_attribs:
+        value = node.base_attribs[knob]
+
+        if knob == "xpos" or knob == "ypos":
+            fusion_base_attribs["Pos"] = f"ViewInfo = OperatorInfo {{ Pos = {{ {node.base_attribs['xpos']}, {node.base_attribs['ypos']} }} }}"
+
+        if knob == "disable":
+            fusion_base_attribs['PassThrough'] = f"PassThrough = {node.base_attribs['disable']}"
+
     return fusion_base_attribs
 
 if __name__ == '__main__':
