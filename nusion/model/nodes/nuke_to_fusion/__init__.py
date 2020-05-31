@@ -18,4 +18,4 @@ def convert(node):
     if node.effect == "ColorCorrect":
         return base_attribs, ColorCorrect.convert(node)
 
-    raise ValueError("Node effect type not found: {0}".format(node.effect))
+    raise ValueError("Node effect '{0}' not currently supported.".format(node.effect))

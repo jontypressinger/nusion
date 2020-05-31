@@ -20,8 +20,8 @@ def convert():
     try:
         result = project.convert_copy_paste()
     except ValueError as e:
-        result = "Error: {}".format(e)
-        
+        result = "{}".format(e)
+
     return jsonify({"result": result})
 
 
