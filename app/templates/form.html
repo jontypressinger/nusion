@@ -9,16 +9,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
-    <div class="nu-hero uk-height-large uk-cover-container uk-light">
-        <img src="https://unsplash.it/1920/1080/?random" alt="nusion-cover" uk-cover>
+    <div class="nu-hero uk-height-medium uk-cover-container uk-light">
+        <img src="https://i.picsum.photos/id/881/1920/1080.jpg" alt="nusion-cover" uk-cover>
         <div class="uk-overlay-primary uk-position-cover"></div>
         <div class="uk-position-cover uk-text-center uk-flex uk-flex-center uk-flex-middle uk-flex-column">
-            <h1 class="uk-text-light uk-text-uppercase">Nusion</h1>
-            <p class="uk-text-large uk-text-light">Convert nodes between The Foundry's <strong>Nuke</strong> and Blackmagic <strong>Fusion!</strong></p>
-            <div class="uk-margin">
-                <a class="uk-button uk-button-primary uk-button-large" href="#nu-about-modal" uk-toggle>About</a>
-                <a class="uk-button uk-button-default uk-button-large" href="#nu-supported-modal" uk-toggle>Notes</a>
-            </div>
+            <h1 class="uk-text-semi uk-text-uppercase">Nusion</h1>
+            <p class="uk-text-medium uk-text-semi">Convert nodes between The Foundry's <strong>Nuke</strong> and Blackmagic <strong>Fusion!</strong></p>
         </div>
     </div>
 
@@ -86,13 +82,11 @@
     </div>
 
     <div class="nu-position-bottom-fixed uk-background-muted uk-text-center uk-padding-small">
-        <p class="uk-margin-remove">
-            Check out this project on
-            <a class="uk-link-muted" href="https://github.com/ontyj/nusion" target="_blank">GitHub</a>,
-            or read about my other projects at
-            <a class="uk-link-muted" href="http://jontypressinger.co.za/" target="_blank">jontypressinger.co.za</a>
-            &mdash; v0.0.1
-        </p>
+      <div class="uk-margin">
+          <a class="uk-button uk-button-default uk-button-small" href="#nu-about-modal" uk-toggle>About</a>
+          <a class="uk-button uk-button-default uk-button-small" href="#nu-supported-modal" uk-toggle>Supported Nodes</a>
+          <a class="uk-button uk-button-default uk-button-small" href="https://github.com/ontyj/nusion">GitHub</a>
+      </div>
     </div>
 
     <!-- resolution modal -->
@@ -114,7 +108,7 @@
 
     <!-- notes modal -->
     <div id="nu-supported-modal" uk-modal>
-        <div class="uk-modal-dialog">
+        <div class="uk-modal-dialog uk-margin-auto-vertical">
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <div class="uk-modal-header">
                 <h2 class="uk-modal-title">Supported Notes</h2>
@@ -139,7 +133,7 @@
 
     <!-- about modal -->
     <div id="nu-about-modal" uk-modal>
-        <div class="uk-modal-dialog">
+        <div class="uk-modal-dialog uk-margin-auto-vertical">
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <div class="uk-modal-header">
                 <h2 class="uk-modal-title">About</h2>
@@ -152,6 +146,11 @@
                     <li>Keyframes</li>
                     <li>Full script conversion</li>
                 </ul>
+                Read about my other projects at
+                <a class="uk-link-muted" href="http://jontypressinger.co.za/" target="_blank">jontypressinger.co.za</a>
+                <br>
+                <br>
+                v0.0.1
             </div>
             <div class="uk-modal-footer uk-text-right">
                 <button class="uk-button uk-button-default uk-modal-close" type="button">Close</button>
