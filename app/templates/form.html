@@ -13,15 +13,14 @@
         <img src="https://i.picsum.photos/id/881/1920/1080.jpg" alt="nusion-cover" uk-cover>
         <div class="uk-overlay-primary uk-position-cover"></div>
         <div class="uk-position-cover uk-text-center uk-flex uk-flex-center uk-flex-middle uk-flex-column">
-            <h1 class="uk-text-semi uk-text-uppercase">Nusion</h1>
-            <p class="uk-text-medium uk-text-semi">Convert nodes between The Foundry's <strong>Nuke</strong> and Blackmagic <strong>Fusion!</strong></p>
+            <h1 class="uk-text-normal uk-text-uppercase">Nusion</h1>
+            <p class="uk-text-medium uk-text-semi">Convert nodes between The Foundry <strong>Nuke</strong> and Blackmagic <strong>Fusion!</strong></p>
         </div>
     </div>
 
     <div class="uk-section">
         <div class="uk-container">
             <div class="uk-grid-small uk-height-match uk-height-1-1" uk-grid>
-
                 <div class="uk-width-1-2@s">
                     <div class="uk-background-muted uk-padding uk-height-1-1">
                         <form class="uk-grid-small uk-height-1-1" uk-grid>
@@ -32,10 +31,13 @@
                             <div>
                                 <div class="uk-grid-small uk-child-width-expand@s uk-flex-middle" uk-grid>
                                     <div class="uk-width-auto">
-                                        Resolution
+                                        Resolution:
                                     </div>
                                     <div>
                                         <input id="input-width" class="uk-input" type="text" placeholder="Width" value="1920">
+                                    </div>
+                                    <div class="uk-width-auto">
+                                        x
                                     </div>
                                     <div>
                                         <input id="input-height" class="uk-input" type="text" placeholder="Height" value=1080>
@@ -89,7 +91,7 @@
 
     <!-- resolution modal -->
     <div id="nu-resolution-modal" uk-modal>
-        <div class="uk-modal-dialog">
+        <div class="uk-modal-dialog uk-margin-auto-vertical">
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <div class="uk-modal-header">
                 <h2 class="uk-modal-title">Why is resolution needed?</h2>
@@ -144,11 +146,11 @@
                     <li>Keyframes</li>
                     <li>Full script conversion</li>
                 </ul>
-                Read about my other projects at
-                <a class="uk-link-muted" href="http://jontypressinger.co.za/" target="_blank">jontypressinger.co.za</a>
+                <i>Read about my other projects at
+                <a class="uk-link-muted" href="http://jontypressinger.co.za/" target="_blank">jontypressinger.co.za</a></i>
                 <br>
                 <br>
-                v0.0.1
+                [v0.0.1]
             </div>
             <div class="uk-modal-footer uk-text-right">
                 <button class="uk-button uk-button-default uk-modal-close" type="button">Close</button>
