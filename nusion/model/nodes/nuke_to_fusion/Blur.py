@@ -32,14 +32,14 @@ def convert(node):
             if value.startswith("{"): # Blur scale is not uniform.
                 fusion_effect_attribs["LockXY"] = "Input {Value = 0, }"
                 value = value.replace("{", "").replace("}", "").split(" ")
-                blur_size_nuke_x = int(value[0])
-                blur_size_nuke_y = int(value[1])
+                blur_size_nuke_x = float(value[0])
+                blur_size_nuke_y = float(value[1])
                 fusion_value_x = round((base_ratio * (blur_size_nuke_x / 10)) / conversion_ratio_x, 5)
                 fusion_value_y = round((base_ratio * (blur_size_nuke_y / 10)) / conversion_ratio_x, 5)
                 fusion_effect_attribs["XBlurSize"] = f"Input {{ Value = {fusion_value_x}, }}"
                 fusion_effect_attribs["YBlurSize"] = f"Input {{ Value = {fusion_value_y}, }}"
             else: # Blur scale is uniform.
-                blur_size_nuke = int(value)
+                blur_size_nuke = float(value)
                 fusion_value = round((base_ratio * (blur_size_nuke / 10)) / conversion_ratio_x, 5)
                 fusion_effect_attribs["XBlurSize"] = f"Input {{ Value = {fusion_value}, }}"
 
