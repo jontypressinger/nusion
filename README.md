@@ -8,7 +8,7 @@
 ```
 Web app to convert nodes between Foundry's Nuke and Blackmagic's Fusion.
 
-**Link to live project:** [http://nusion.herokuapp.com/](http://nusion.herokuapp.com/)
+**Link to live project:** [https://www.nusion.app/](https://nusion.app/)
 
 
 ## Contributing
