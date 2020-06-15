@@ -1,3 +1,4 @@
+from nusion.model import config
 from nusion.model.nodes import nuke_to_fusion
 
 class Node():
@@ -52,14 +53,12 @@ class Node():
         Returns:
             base_attribs (dict), effect_attribs (dict)
         """
-        nuke_base_attributes = ["name", "disable", "xpos", "ypos"]
-        nuke_ignore_attributes = ["selected"]
         base_attribs = {}
         effect_attribs = {}
         for item in node_raw[1:-1]:
             attrib = item.split(" ")[0]
-            if attrib not in nuke_ignore_attributes:
-                if attrib in nuke_base_attributes:
+            if attrib not in config.NUKE_IGNORE_ATTRIBUTES:
+                if attrib in config.NUKE_BASE_ATTRIBUTES:
                     base_attribs[attrib] = item.replace(attrib, "").strip()
                 else:
                     effect_attribs[attrib] = item.replace(attrib, "").strip()
