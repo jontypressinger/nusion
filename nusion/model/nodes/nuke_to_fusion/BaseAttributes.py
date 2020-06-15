@@ -10,6 +10,9 @@ def convert(node):
     for knob in node.base_attribs:
         value = node.base_attribs[knob]
 
+        if knob == "name":
+            fusion_base_attribs['name'] = value
+
         if knob == "xpos" or knob == "ypos":
             fusion_base_attribs["Pos"] = f"ViewInfo = OperatorInfo {{ Pos = {{ {node.base_attribs['xpos']}, {node.base_attribs['ypos']} }} }}"
 
