@@ -1,7 +1,12 @@
 import re
 from nusion.model.node import Node
 
-class Nusion:
+class Project:
+    """
+    This class will serve as the equivelent of a project file. A project
+    file can contain multiple nodes, represented by the Node class. Node input
+    and output connections are managed in this class.
+    """
 
     def __init__(self, data):
         self.resolution = {"w": int(data["width"]), "h": int(data["height"])}

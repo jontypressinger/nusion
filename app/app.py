@@ -16,7 +16,7 @@ def hello():
 @app.route("/convert", methods=["POST"])
 def convert():
     response = request.get_json()
-    project = nusion.Nusion(response)
+    project = nusion.Project(response)
     try:
         result = project.convert_copy_paste()
     except ValueError as e:
