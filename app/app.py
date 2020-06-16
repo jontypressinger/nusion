@@ -9,7 +9,7 @@ app.config["DEBUG"] = True
 
 
 @app.route("/", methods=["GET"])
-def hello():
+def home():
     return render_template("form.html")
 
 
