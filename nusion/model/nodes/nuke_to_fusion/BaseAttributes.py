@@ -30,6 +30,11 @@ def convert(node):
             rgb = hex_to_rgb(value)
             fusion_base_attribs['TextColor'] = f"TextColor = {{ R = {rgb[0]}, G = {rgb[1]}, B = {rgb[2]} }}"
 
+        if knob == "useLifetime" and value == "true":
+            fusion_base_attribs['EnabledRegion'] = f"EnabledRegion = TimeRegion {{ " \
+                                                    f"{{ Start = {node.base_attribs['lifetimeStart']}, " \
+                                                    f"End = {node.base_attribs['lifetimeEnd']}, }} }}"
+
     return fusion_base_attribs
 
 
