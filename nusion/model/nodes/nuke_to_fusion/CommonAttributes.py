@@ -36,6 +36,8 @@ def convert(node):
                 if "-rgba.alpha" in value:
                     fusion_effect_attribs["ProcessAlpha"] = "Input {Value = 0, }"
 
+        if knob == "label":
+            fusion_effect_attribs["Comments"] = f"Input {{ Value = {value}, }}"
 
     return fusion_effect_attribs
 

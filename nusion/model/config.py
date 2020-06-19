@@ -13,7 +13,6 @@ NUKE_BASE_ATTRIBUTES = [
     "tile_color", 
     "gl_color", 
     "process_mask", 
-    "label", 
     "maskFrom", 
     "maskChannelMask", 
     "maskChannelInput", 
