@@ -14,7 +14,7 @@ def convert(node):
             fusion_base_attribs['name'] = value
 
         if knob == "xpos" or knob == "ypos":
-            fusion_base_attribs["Pos"] = f"ViewInfo = OperatorInfo {{ Pos = {{ {node.base_attribs['xpos']}, {node.base_attribs['ypos']} }} }}"
+            fusion_base_attribs["Pos"] = f"Pos = {{ {node.base_attribs['xpos']}, {node.base_attribs['ypos']} }}"
 
         if knob == "disable":
             fusion_base_attribs['PassThrough'] = f"PassThrough = {node.base_attribs['disable']}"

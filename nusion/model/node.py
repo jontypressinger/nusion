@@ -93,18 +93,38 @@ class FusionNode(Node):
 
     def output(self):
         """
-        Get's the node class ready for output in relevant software.
+        Output the node in Fusion formatting.
         """
         output_effect_attribs = ""
         output_base_attribs = ""
+        output_viewinfo_attribs = ""
         for i, effect in enumerate(self.effect_attribs):
             output_effect_attribs += f"{effect} = {self.effect_attribs[effect]},"
             if i != len(self.effect_attribs)-1: #Add newline character if this is not the last effect attribute.
                 output_effect_attribs += "\n"
         for i, attrib in enumerate(self.base_attribs):
-            output_base_attribs += f"{self.base_attribs[attrib]},"
-            if i != len(self.base_attribs)-1: #Add newline character if this is not the last base attribute.
-                output_base_attribs += "\n"
+            if attrib == "name":
+                pass
+            else:
+                if attrib in config.FUSION_VIEWINFO:
+                    output_viewinfo_attribs += f"{self.base_attribs[attrib]},"
+                else:
+                    output_base_attribs += f"{self.base_attribs[attrib]},"
 
-        node_output = f"{self.name} = {self.effect} {{\nInputs = {{\n{output_effect_attribs}\n}},\n{output_base_attribs}\n}}"
+                if i != len(self.base_attribs)-1: #Add newline character if this is not the last base attribute.
+                    output_base_attribs += "\n"
+
+        node_output = f"{self.name} = {self.effect} {{\n{output_base_attribs}\nInputs = {{\n{output_effect_attribs}\n}},\nViewInfo = OperatorInfo {{\n{output_viewinfo_attribs}\n}},\n}}"
+
+        # Cleanup any empty lines caused by rogue newline character 
+        # being moved to the wrong place. Feels like unnecessary double parsing.
+        # TODO: Not do this.
+        lines = node_output.split("\n")
+        non_empty_lines = [line for line in lines if line.strip() != ""]
+        node_output = ""
+        for i, line in enumerate(non_empty_lines):
+            node_output += line
+            if i != len(non_empty_lines)-1:
+                node_output += "\n" #Add newline character if this is not the last line.
+
         return node_output

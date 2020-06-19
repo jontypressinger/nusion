@@ -1,3 +1,5 @@
+### NUKE ###
+
 NUKE_BASE_ATTRIBUTES = [ \
     "name", \
     "disable", \
@@ -28,3 +30,9 @@ NUKE_BASE_ATTRIBUTES = [ \
 NUKE_IGNORE_ATTRIBUTES = [ \
     "selected", \
         ]
+
+
+### FUSION ###
+FUSION_VIEWINFO = [ \
+    "Pos",
+    ]
