@@ -28,6 +28,7 @@ def convert(node):
 
     for knob in nuke_effect_attribs:
         value = nuke_effect_attribs[knob]
+        
         if knob == "size":
             if value.startswith("{"): # Blur scale is not uniform.
                 fusion_effect_attribs["LockXY"] = "Input {Value = 0, }"
@@ -42,6 +43,32 @@ def convert(node):
                 blur_size_nuke = float(value)
                 fusion_value = round((base_ratio * (blur_size_nuke / 10)) / conversion_ratio_x, 5)
                 fusion_effect_attribs["XBlurSize"] = f"Input {{ Value = {fusion_value}, }}"
+        
+        if knob == "channels":
+            """
+            This is a duplicate of the conversion found in CommonAttributes. (with "Process" removed)
+            The fusion Blur node displays this info in two places so it's best to
+            convert it here too to avoid confusion for the user.
+            """
+            if value == "all":
+                #Fusion only supports RGBA channel processing
+                #TODO: Flag to user if there are any extra channels in the pipe.
+                pass
+            if value == "rgb":
+                fusion_effect_attribs["Alpha"] = "Input {Value = 0, }"
+            if value == "alpha":
+                fusion_effect_attribs["Red"] = "Input {Value = 0, }"
+                fusion_effect_attribs["Green"] = "Input {Value = 0, }"
+                fusion_effect_attribs["Blue"] = "Input {Value = 0, }"
+            if value.startswith("{"): #individual channels selected
+                if "-rgba.red" in value:
+                    fusion_effect_attribs["Red"] = "Input {Value = 0, }"
+                if "-rgba.green" in value:
+                    fusion_effect_attribs["Green"] = "Input {Value = 0, }"
+                if "-rgba.blue" in value:
+                    fusion_effect_attribs["Blue"] = "Input {Value = 0, }"
+                if "-rgba.alpha" in value:
+                    fusion_effect_attribs["Alpha"] = "Input {Value = 0, }"
 
     return fusion_effect_attribs
 

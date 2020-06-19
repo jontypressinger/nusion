@@ -7,7 +7,6 @@ NUKE_BASE_ATTRIBUTES = [
     "disable", 
     "xpos", 
     "ypos", 
-    "channels", 
     "note_font_color", 
     "note_font", 
     "note_font_size", 
