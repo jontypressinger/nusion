@@ -17,14 +17,18 @@ def convert(node):
             fusion_base_attribs["Pos"] = f"Pos = {{ {node.base_attribs['xpos']}, {node.base_attribs['ypos']} }}"
 
         if knob == "disable":
-            fusion_base_attribs['PassThrough'] = f"PassThrough = {node.base_attribs['disable']}"
+            fusion_base_attribs['PassThrough'] = f"PassThrough = {value}"
 
         if knob == "postage_stamp":
-            fusion_base_attribs['ShowPic'] = f"Flags = {{ ShowPic = {node.base_attribs['postage_stamp']} }}" 
+            fusion_base_attribs['ShowPic'] = f"Flags = {{ ShowPic = {value} }}" 
 
         if knob == "tile_color":
-            rgb = hex_to_rgb(node.base_attribs['tile_color'])
+            rgb = hex_to_rgb(value)
             fusion_base_attribs['TileColor'] = f"TileColor = {{ R = {rgb[0]}, G = {rgb[1]}, B = {rgb[2]} }}"
+        
+        if knob == "note_font_color":
+            rgb = hex_to_rgb(value)
+            fusion_base_attribs['TextColor'] = f"TextColor = {{ R = {rgb[0]}, G = {rgb[1]}, B = {rgb[2]} }}"
 
     return fusion_base_attribs
 
