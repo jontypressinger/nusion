@@ -3,7 +3,7 @@ def convert(node):
     """ Convert Nuke Base Attributes to Fusion Base Attributes
 
     Returns:
-        dict with fusion formatted base attributes.
+        dict with fusion formatted base attributes
     """
     fusion_base_attribs = {}
 
@@ -19,7 +19,28 @@ def convert(node):
         if knob == "disable":
             fusion_base_attribs['PassThrough'] = f"PassThrough = {node.base_attribs['disable']}"
 
+        if knob == "postage_stamp":
+            fusion_base_attribs['ShowPic'] = f"Flags = {{ ShowPic = {node.base_attribs['postage_stamp']} }}" 
+
+        if knob == "tile_color":
+            rgb = hex_to_rgb(node.base_attribs['tile_color'])
+            fusion_base_attribs['TileColor'] = f"TileColor = {{ R = {rgb[0]}, G = {rgb[1]}, B = {rgb[2]} }}"
+
     return fusion_base_attribs
+
+
+def hex_to_rgb(hex_value):
+    """ Convert hex colour to RGB(A).
+
+     Returns:
+        tuple with R,G,B,A values (between 0 and 1 for fusion)
+    """
+    h = hex_value.lstrip('0x')
+    if len(h) > 6: #Contains alpha channel
+        return tuple(round(int(h[i:i+2], 16)/255,15) for i in (0, 2, 4, 6))
+    else:
+        return tuple(round(int(h[i:i+2], 16)/255,15)  for i in (0, 2, 4))
+
 
 if __name__ == '__main__':
     help(convert)

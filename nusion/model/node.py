@@ -98,6 +98,7 @@ class FusionNode(Node):
         output_effect_attribs = ""
         output_base_attribs = ""
         output_viewinfo_attribs = ""
+        output_color_attribs = ""
         for i, effect in enumerate(self.effect_attribs):
             output_effect_attribs += f"{effect} = {self.effect_attribs[effect]},"
             if i != len(self.effect_attribs)-1: #Add newline character if this is not the last effect attribute.
@@ -107,14 +108,13 @@ class FusionNode(Node):
                 pass
             else:
                 if attrib in config.FUSION_VIEWINFO:
-                    output_viewinfo_attribs += f"{self.base_attribs[attrib]},"
+                    output_viewinfo_attribs += f"{self.base_attribs[attrib]},\n"
+                elif attrib in config.FUSION_COLOR:
+                    output_color_attribs += f"{self.base_attribs[attrib]},\n"
                 else:
-                    output_base_attribs += f"{self.base_attribs[attrib]},"
+                    output_base_attribs += f"{self.base_attribs[attrib]},\n"
 
-                if i != len(self.base_attribs)-1: #Add newline character if this is not the last base attribute.
-                    output_base_attribs += "\n"
-
-        node_output = f"{self.name} = {self.effect} {{\n{output_base_attribs}\nInputs = {{\n{output_effect_attribs}\n}},\nViewInfo = OperatorInfo {{\n{output_viewinfo_attribs}\n}},\n}}"
+        node_output = f"{self.name} = {self.effect} {{\n{output_base_attribs}\nInputs = {{\n{output_effect_attribs}\n}},\nViewInfo = OperatorInfo {{\n{output_viewinfo_attribs}\n}},\nColors = {{\n{output_color_attribs}\n}}\n}}"
 
         # Cleanup any empty lines caused by rogue newline character 
         # being moved to the wrong place. Feels like unnecessary double parsing.
