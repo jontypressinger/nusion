@@ -35,16 +35,13 @@ def convert(node):
                 blur_size_nuke_x = float(value[0])
                 blur_size_nuke_y = float(value[1])
                 fusion_value_x = round((base_ratio * (blur_size_nuke_x / 10)) / conversion_ratio_x, 5)
-                fusion_value_y = round((base_ratio * (blur_size_nuke_y / 10)) / conversion_ratio_x, 5)
+                fusion_value_y = round((base_ratio * (blur_size_nuke_y / 10)) / conversion_ratio_y, 5)
                 fusion_effect_attribs["XBlurSize"] = f"Input {{ Value = {fusion_value_x}, }}"
                 fusion_effect_attribs["YBlurSize"] = f"Input {{ Value = {fusion_value_y}, }}"
             else: # Blur scale is uniform.
                 blur_size_nuke = float(value)
                 fusion_value = round((base_ratio * (blur_size_nuke / 10)) / conversion_ratio_x, 5)
                 fusion_effect_attribs["XBlurSize"] = f"Input {{ Value = {fusion_value}, }}"
-
-        if knob == "mix":
-            fusion_effect_attribs["Blend"] = f"Input {{ Value = {value}, }}"
 
     return fusion_effect_attribs
 
