@@ -24,6 +24,18 @@ var App = {
     App.components.btnConvert.addEventListener('click', App.onConvertClicked);
     App.components.btnClear.addEventListener('click', App.onClearClicked);
     App.components.btnCopy.addEventListener('click', App.onCopyClicked);
+    App.components.txtInputNode.addEventListener('focus', App.onInputFocus);
+    App.components.txtInputWidth.addEventListener('focus', App.onInputFocus);
+    App.components.txtInputHeight.addEventListener('focus', App.onInputFocus);
+  },
+
+  /**
+   * Removes danger text formatting on input focus.
+   *
+   * @param {Event} event
+   */
+  onInputFocus: function (event) {
+    event.target.classList.remove('uk-form-danger');
   },
 
   convertNode: function (inputNode, resWidth, resHeight, fromSoftware) {
@@ -43,11 +55,16 @@ var App = {
       });
   },
 
-  isValid: function () {
+  /**
+   * Checks the given array of inputs are valid for now "valid" means not empty.
+   *
+   * @param {Array} inputs
+   * @return {Boolean}
+   */
+  isValid: function (inputs) {
     let valid = true;
-    const testInputs = [App.components.txtInputNode];
 
-    testInputs.forEach((input) => {
+    inputs.forEach((input) => {
       if (input.value.trim() === '') {
         valid = false;
         input.classList.add('uk-form-danger');
@@ -59,19 +76,23 @@ var App = {
 
   onConvertClicked: function (e) {
     e.preventDefault();
+    const validateInputs = [
+      App.components.txtInputNode,
+      App.components.txtInputWidth,
+      App.components.txtInputHeight,
+    ];
 
-    if (App.isValid()) {
-      console.log('VALID');
+    if (App.isValid(validateInputs)) {
+      App.components.errorText.classList.add('nu-hidden');
+      App.convertNode(
+        App.components.txtInputNode.value,
+        App.components.txtInputWidth.value,
+        App.components.txtInputHeight.value,
+        'nuke'
+      );
     } else {
-      console.log('NOT VALID');
+      App.components.errorText.classList.remove('nu-hidden');
     }
-
-    // App.convertNode(
-    //   App.components.txtInputNode.value,
-    //   App.components.txtInputWidth.value,
-    //   App.components.txtInputHeight.value,
-    //   'nuke'
-    // );
   },
 
   onClearClicked: function (e) {

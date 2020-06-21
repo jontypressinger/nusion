@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 
+body {
+  padding-bottom: 40px; /* this makes up padding for the sticky footer if the page happens to scroll */
+}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
