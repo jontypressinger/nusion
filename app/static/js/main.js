@@ -9,15 +9,22 @@ var App = {
     txtOutputNode: document.getElementById('nu-output-node'),
     txtInputWidth: document.getElementById('nu-input-width'),
     txtInputHeight: document.getElementById('nu-input-height'),
-    errorText: document.getElementById('nu-error-text'),
+    errorText: document.getElementById('nu-input-error-text'),
     body: document.body,
   },
+
   routes: {
     convert: 'convert',
   },
 
   init: function () {
     App.addEventListeners();
+
+    App.matchHeights(
+      App.components.txtInputNode,
+      App.components.txtOutputNode,
+      55 // makes up for the space created by the resolution row
+    );
   },
 
   addEventListeners: function () {
@@ -74,6 +81,43 @@ var App = {
     return valid;
   },
 
+  /**
+   * Gets the computed height of an element in px
+   *
+   * @param {Element} element
+   */
+  outerHeight: function (element) {
+    var height = element.offsetHeight;
+    var style = getComputedStyle(element);
+
+    height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+    return height;
+  },
+
+  /**
+   * Sets an elements height in pixels
+   *
+   * @param {Element} element
+   * @param {Number} val
+   */
+  setHeight: function (element, val) {
+    if (typeof val === 'function') val = val();
+    if (typeof val === 'string') element.style.height = val;
+    else element.style.height = val + 'px';
+  },
+
+  /**
+   * Matches the target elements height to the source elements height, can also be tuned with an offset value
+   *
+   * @param {Element} source
+   * @param {Element} target
+   * @param {Number} offset
+   */
+  matchHeights: function (source, target, offset) {
+    const sourceHeight = App.outerHeight(source);
+    App.setHeight(target, sourceHeight + offset);
+  },
+
   onConvertClicked: function (e) {
     e.preventDefault();
     const validateInputs = [
@@ -83,7 +127,7 @@ var App = {
     ];
 
     if (App.isValid(validateInputs)) {
-      App.components.errorText.classList.add('nu-hidden');
+      App.components.errorText.classList.add('nu-invisible');
       App.convertNode(
         App.components.txtInputNode.value,
         App.components.txtInputWidth.value,
@@ -91,12 +135,13 @@ var App = {
         'nuke'
       );
     } else {
-      App.components.errorText.classList.remove('nu-hidden');
+      App.components.errorText.classList.remove('nu-invisible');
     }
   },
 
   onClearClicked: function (e) {
     e.preventDefault();
+    App.components.errorText.classList.add('nu-invisible');
     App.components.txtOutputNode.value = '';
     App.components.txtInputNode.value = '';
     App.components.txtInputNode.focus();

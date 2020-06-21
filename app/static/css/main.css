@@ -51,3 +51,37 @@ body {
 .nu-hidden {
   display: none;
 }
+
+.nu-invisible {
+  visibility: hidden;
+}
+
+.nu-error-text {
+  min-height: 1em;
+}
+
+#nu-input-node {
+  height: 220px;
+}
+
+#nu-output-node {
+  height: 275px; /* this value is recalculated during App.init() in main.js, this initial value is just to stop any jarring height changes on load */
+}
+
+.nu-footer-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nu-footer-list li {
+  display: inline;
+}
+
+.nu-footer-list li::before {
+  content: ' | ';
+}
+
+.nu-footer-list li:first-child::before {
+  content: '';
+}
