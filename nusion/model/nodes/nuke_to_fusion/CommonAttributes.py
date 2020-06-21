@@ -1,4 +1,5 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, missing-module-docstring
+# Disable pylint invalid name warning as this files is named to match the Nuke node.
 
 def convert(node):
     """ Convert Nuke common effect attributes to Fusion

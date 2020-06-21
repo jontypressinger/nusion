@@ -1,4 +1,5 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, missing-module-docstring
+# Disable pylint invalid name warning as this files is named to match the Nuke node.
 """
 
 blur_conversion_ratio = 1000x1000 square with 10 blur radius in nuke
@@ -29,27 +30,32 @@ def convert(node):
 
     for knob in nuke_effect_attribs:
         value = nuke_effect_attribs[knob]
-        
+
         if knob == "size":
             if value.startswith("{"): # Blur scale is not uniform.
                 fusion_effect_attribs["LockXY"] = "Input {Value = 0, }"
                 value = value.replace("{", "").replace("}", "").split(" ")
                 blur_size_nuke_x = float(value[0])
                 blur_size_nuke_y = float(value[1])
-                fusion_value_x = round((base_ratio * (blur_size_nuke_x / 10)) / conversion_ratio_x, 5)
-                fusion_value_y = round((base_ratio * (blur_size_nuke_y / 10)) / conversion_ratio_y, 5)
+                fusion_value_x = round( \
+                    (base_ratio * (blur_size_nuke_x / 10)) / conversion_ratio_x, 5 \
+                        )
+                fusion_value_y = round(\
+                    (base_ratio * (blur_size_nuke_y / 10)) / conversion_ratio_y, 5 \
+                        )
                 fusion_effect_attribs["XBlurSize"] = f"Input {{ Value = {fusion_value_x}, }}"
                 fusion_effect_attribs["YBlurSize"] = f"Input {{ Value = {fusion_value_y}, }}"
             else: # Blur scale is uniform.
                 blur_size_nuke = float(value)
                 fusion_value = round((base_ratio * (blur_size_nuke / 10)) / conversion_ratio_x, 5)
                 fusion_effect_attribs["XBlurSize"] = f"Input {{ Value = {fusion_value}, }}"
-        
+
         if knob == "channels":
-            # This is a duplicate of the conversion found in CommonAttributes. (with "Process" removed)
+            # This is a duplicate of the conversion found in CommonAttributes.
+            # (with "Process" removed)
             # The fusion Blur node displays this info in two places so it's best to
             # convert it here too to avoid confusion for the user.
-            
+
             if value == "all":
                 #Fusion only supports RGBA channel processing
                 #TODO: Flag to user if there are any extra channels in the pipe.

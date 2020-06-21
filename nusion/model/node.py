@@ -71,7 +71,7 @@ class NukeNode(Node):
     def __init__(self, effect, base_attribs, effect_attribs, resolution):
         super().__init__(effect, base_attribs, effect_attribs, resolution)
         self.software = "nuke"
-        
+
 
     def to_fusion(self):
         """
@@ -81,7 +81,10 @@ class NukeNode(Node):
             raise ValueError("Expected node from 'nuke' got '{}' instead".format(self.software))
 
         converted_base_attribs, converted_effect_attribs = nuke_to_fusion.convert(self)
-        return FusionNode(self.effect, converted_base_attribs, converted_effect_attribs, self.resolution)
+        return FusionNode(self.effect, \
+            converted_base_attribs, \
+            converted_effect_attribs, \
+            self.resolution)
 
 
 
@@ -101,7 +104,8 @@ class FusionNode(Node):
         output_color_attribs = ""
         for i, effect in enumerate(self.effect_attribs):
             output_effect_attribs += f"{effect} = {self.effect_attribs[effect]},"
-            if i != len(self.effect_attribs)-1: #Add newline character if this is not the last effect attribute.
+            if i != len(self.effect_attribs)-1:
+                #Add newline character if this is not the last effect attribute.
                 output_effect_attribs += "\n"
         for i, attrib in enumerate(self.base_attribs):
             if attrib == "name":
@@ -120,14 +124,14 @@ class FusionNode(Node):
             output_viewinfo_attribs = f"ViewInfo = OperatorInfo {{\n{output_viewinfo_attribs}\n}},"
         if output_color_attribs:
             output_color_attribs = f"Colors = {{\n{output_color_attribs}\n}},"
-            
+
         node_output = f"{self.name} = {self.effect} {{\n" \
                         f"{output_base_attribs}\n" \
                         f"{output_effect_attribs}\n" \
                         f"{output_viewinfo_attribs}\n" \
                         f"{output_color_attribs}\n" \
                         f"}}"
-                      
+
         # Cleanup any empty lines caused by rogue newline character
         # being moved to the wrong place. Feels like unnecessary double parsing.
         # TODO: Not do this.
