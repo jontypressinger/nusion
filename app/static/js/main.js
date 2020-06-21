@@ -2,13 +2,14 @@
 
 var App = {
   components: {
-    btnConvert: document.getElementById('btn-convert'),
-    btnClear: document.getElementById('btn-clear'),
-    btnCopy: document.getElementById('btn-copy'),
-    txtInputNode: document.getElementById('input-node'),
-    txtOutputNode: document.getElementById('output-node'),
-    txtInputWidth: document.getElementById('input-width'),
-    txtInputHeight: document.getElementById('input-height'),
+    btnConvert: document.getElementById('nu-btn-convert'),
+    btnClear: document.getElementById('nu-btn-clear'),
+    btnCopy: document.getElementById('nu-btn-copy'),
+    txtInputNode: document.getElementById('nu-input-node'),
+    txtOutputNode: document.getElementById('nu-output-node'),
+    txtInputWidth: document.getElementById('nu-input-width'),
+    txtInputHeight: document.getElementById('nu-input-height'),
+    errorText: document.getElementById('nu-error-text'),
     body: document.body,
   },
   routes: {
@@ -42,14 +43,35 @@ var App = {
       });
   },
 
+  isValid: function () {
+    let valid = true;
+    const testInputs = [App.components.txtInputNode];
+
+    testInputs.forEach((input) => {
+      if (input.value.trim() === '') {
+        valid = false;
+        input.classList.add('uk-form-danger');
+      }
+    });
+
+    return valid;
+  },
+
   onConvertClicked: function (e) {
     e.preventDefault();
-    App.convertNode(
-      App.components.txtInputNode.value,
-      App.components.txtInputWidth.value,
-      App.components.txtInputHeight.value,
-      'nuke'
-    );
+
+    if (App.isValid()) {
+      console.log('VALID');
+    } else {
+      console.log('NOT VALID');
+    }
+
+    // App.convertNode(
+    //   App.components.txtInputNode.value,
+    //   App.components.txtInputWidth.value,
+    //   App.components.txtInputHeight.value,
+    //   'nuke'
+    // );
   },
 
   onClearClicked: function (e) {

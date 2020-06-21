@@ -43,3 +43,7 @@
 .nu-resize-none {
   resize: none;
 }
+
+.nu-hidden {
+  display: none;
+}

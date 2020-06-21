@@ -35,13 +35,13 @@
                                         Resolution:
                                     </div>
                                     <div>
-                                        <input id="input-width" class="uk-input" type="text" placeholder="Width" value="1920">
+                                        <input id="nu-input-width" class="uk-input" type="text" placeholder="Width" value="1920">
                                     </div>
                                     <div class="uk-width-auto">
                                         x
                                     </div>
                                     <div>
-                                        <input id="input-height" class="uk-input" type="text" placeholder="Height" value=1080>
+                                        <input id="nu-input-height" class="uk-input" type="text" placeholder="Height" value=1080>
                                     </div>
                                     <div class="uk-width-auto">
                                         <span class="nu-cursor-pointer" uk-icon="info" uk-toggle="target: #nu-resolution-modal"></span>
@@ -50,12 +50,16 @@
                             </div>
 
                             <div class="uk-width-1-1">
-                                <textarea id="input-node" class="uk-textarea nu-resize-none" rows="7" placeholder="Paste Nuke node here"></textarea>
+                                <textarea id="nu-input-node" class="uk-textarea nu-resize-none" rows="7" placeholder="Paste Nuke node here"></textarea>
+                            </div>
+
+                            <div id="nu-error-text" class="uk-width-1-1 nu-hidden">
+                                <span class="uk-text-small uk-text-italic uk-text-danger">Please fill in all the required form fields above.</span>
                             </div>
 
                             <div class="uk-width-1-1">
-                                <button id="btn-convert" class="uk-button uk-button-secondary">Convert</button>
-                                <button id="btn-clear" class="uk-button uk-button-default">Clear</button>
+                                <button id="nu-btn-convert" class="uk-button uk-button-secondary">Convert</button>
+                                <button id="nu-btn-clear" class="uk-button uk-button-default">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -70,11 +74,11 @@
 
                             <div class="uk-width-1-1">
                                 <!-- TODO: write a bit of code to match the height of these textareas -->
-                                <textarea id="output-node" class="uk-textarea nu-resize-none" rows="10" placeholder="Fusion node will appear here"></textarea>
+                                <textarea id="nu-output-node" class="uk-textarea nu-resize-none" rows="10" placeholder="Fusion node will appear here"></textarea>
                             </div>
 
                             <div class="uk-width-1-1">
-                                <button id="btn-copy" class="uk-button uk-button-default">Copy to Clipboard</button>
+                                <button id="nu-btn-copy" class="uk-button uk-button-default">Copy to Clipboard</button>
                             </div>
                         </form>
                     </div>
