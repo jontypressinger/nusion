@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 
 def convert(node):
     """ Convert Nuke Base Attributes to Fusion Base Attributes

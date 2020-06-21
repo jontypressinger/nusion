@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 
 blur_conversion_ratio = 1000x1000 square with 10 blur radius in nuke
@@ -45,11 +46,10 @@ def convert(node):
                 fusion_effect_attribs["XBlurSize"] = f"Input {{ Value = {fusion_value}, }}"
         
         if knob == "channels":
-            """
-            This is a duplicate of the conversion found in CommonAttributes. (with "Process" removed)
-            The fusion Blur node displays this info in two places so it's best to
-            convert it here too to avoid confusion for the user.
-            """
+            # This is a duplicate of the conversion found in CommonAttributes. (with "Process" removed)
+            # The fusion Blur node displays this info in two places so it's best to
+            # convert it here too to avoid confusion for the user.
+            
             if value == "all":
                 #Fusion only supports RGBA channel processing
                 #TODO: Flag to user if there are any extra channels in the pipe.

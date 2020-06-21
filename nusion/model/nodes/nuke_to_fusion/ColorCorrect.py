@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 
 def convert(nuke_effect_attribs):
     """ Convert Nuke ColorCorrect to Fusion ColorCorrector

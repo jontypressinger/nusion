@@ -113,7 +113,7 @@ class FusionNode(Node):
                     output_color_attribs += f"{self.base_attribs[attrib]},\n"
                 else:
                     output_base_attribs += f"{self.base_attribs[attrib]},\n"
-                    
+
         if output_effect_attribs:
             output_effect_attribs = f"Inputs = {{\n{output_effect_attribs}\n}},"
         if output_viewinfo_attribs:
@@ -128,7 +128,7 @@ class FusionNode(Node):
                         f"{output_color_attribs}\n" \
                         f"}}"
                       
-        # Cleanup any empty lines caused by rogue newline character 
+        # Cleanup any empty lines caused by rogue newline character
         # being moved to the wrong place. Feels like unnecessary double parsing.
         # TODO: Not do this.
         lines = node_output.split("\n")
