@@ -1,4 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400");
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+
+body {
+  padding-bottom: 40px; /* this makes up padding for the sticky footer if the page happens to scroll */
+}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
@@ -12,14 +17,17 @@
 .nu-hero.uk-cover-container h1 {
   font-size: 3.2rem;
   letter-spacing: 5px;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
+
 .nu-hero.uk-cover-container p {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
+
 .nu-hero.uk-cover-container .uk-position-cover {
   z-index: 1;
 }
+
 .nu-hero.uk-cover-container .uk-container {
   width: 200px;
 }
@@ -40,4 +48,6 @@
   resize: none;
 }
 
-/*# sourceMappingURL=main.css.map */
+.nu-hidden {
+  display: none;
+}

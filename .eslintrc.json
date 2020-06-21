@@ -1,0 +1,10 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": ["eslint:recommended", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 11
+  },
+  "rules": {}
+}

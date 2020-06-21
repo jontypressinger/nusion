@@ -4,8 +4,13 @@
   "description": "Nusion Converter UI",
   "main": "app/static/js/index.js",
   "scripts": {
-    "start": "sass --watch ./app/static/css/main.scss ./app/static/css/main.css",
-    "build": "sass ./app/static/css/main.scss ./app/static/css/main.css --style compressed"
+    "lint": "eslint \"app/**/*.js\"",
+    "pretty": "prettier --write \"**/*.{json,js,css}\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pretty && npm run lint"
+    }
   },
   "repository": {
     "type": "git",
@@ -21,6 +26,9 @@
   },
   "homepage": "https://github.com/ontyj/nusion#readme",
   "devDependencies": {
-    "sass": "^1.26.7"
+    "eslint": "^7.3.0",
+    "eslint-config-prettier": "^6.11.0",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5"
   }
 }
