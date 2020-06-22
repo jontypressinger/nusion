@@ -30,7 +30,7 @@
                                 <legend id="nu-fusion-input-heading" class="uk-legend uk-heading-bullet nu-absolute nu-hidden">Fusion</legend>
                             </div>
 
-                            <div>
+                            <div id="nu-resolution-row">
                                 <div class="uk-grid-small uk-child-width-expand@s uk-flex-middle" uk-grid>
                                     <div class="uk-width-auto">
                                         Resolution:
@@ -67,13 +67,13 @@
                 <div class="uk-width-1-2@s">
                     <div class="uk-background-muted uk-padding">
                         <form class="uk-grid-small" uk-grid>
-                            <div class="uk-width-1-1@s">
-                                <!-- <legend class="uk-legend uk-heading-bullet">Nuke</legend> -->
-                                <legend class="uk-legend uk-heading-bullet">Fusion</legend>
+                            <div class="uk-width-1-1@s nu-card-header-container">
+                                <legend id="nu-nuke-output-heading" class="uk-legend uk-heading-bullet nu-absolute nu-hidden">Nuke</legend>
+                                <legend id="nu-fusion-output-heading" class="uk-legend uk-heading-bullet nu-absolute">Fusion</legend>
                             </div>
 
                             <div class="uk-width-1-1">
-                                <textarea id="nu-output-node" class="uk-textarea nu-resize-none" placeholder="Fusion node will appear here"></textarea>
+                                <textarea id="nu-output-node" class="uk-textarea nu-resize-none" placeholder="Output node will appear here"></textarea>
                             </div>
 
                             <!-- TODO: we can use this space to prompt for conversion report -->

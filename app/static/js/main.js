@@ -1,5 +1,11 @@
 'use strict';
 
+const consts = Object.freeze({
+  NUKE_TEST_PATTERN: `set cut_paste_input [stack 0]`,
+  FUSION_TEST_PATTERN: `{
+    Tools = ordered() {`,
+});
+
 var App = {
   previousInputNodeType: 'nuke', // this is a ghetto componentShouldUpdate
   inputNodeType: 'nuke', // and this is ghetto state
@@ -15,6 +21,9 @@ var App = {
     errorText: document.getElementById('nu-input-error-text'),
     nukeInputHeading: document.getElementById('nu-nuke-input-heading'),
     fusionInputHeading: document.getElementById('nu-fusion-input-heading'),
+    nukeOutputHeading: document.getElementById('nu-nuke-output-heading'),
+    fusionOutputHeading: document.getElementById('nu-fusion-output-heading'),
+    resolutionRow: document.getElementById('nu-resolution-row'),
     body: document.body,
   },
 
@@ -28,7 +37,7 @@ var App = {
     App.matchHeights(
       App.components.txtInputNode,
       App.components.txtOutputNode,
-      55 // makes up for the space created by the resolution row
+      App.outerHeight(App.components.resolutionRow) // makes up for the space created by the resolution row
     );
   },
 
@@ -37,13 +46,9 @@ var App = {
     App.components.btnClear.addEventListener('click', App.onClearClicked);
     App.components.btnCopy.addEventListener('click', App.onCopyClicked);
     App.components.txtInputNode.addEventListener('focus', App.onInputFocus);
-    // App.components.txtInputNode.addEventListener(
-    //   'keyup',
-    //   App.onTxtInputNodeChange
-    // );
     App.components.txtInputNode.addEventListener(
-      'paste',
-      App.onTxtInputNodeChange
+      'input',
+      App.onTxtInputNodeInput
     );
     App.components.txtInputWidth.addEventListener('focus', App.onInputFocus);
     App.components.txtInputHeight.addEventListener('focus', App.onInputFocus);
@@ -56,31 +61,26 @@ var App = {
    * @param {String} testPattern
    */
   matchNodeTest(value, testPattern) {
-    return value.includes(testPattern) && value.indexOf(testPattern) === 0;
+    const sanitizedValue = value.toString().replace(/\s/g, '').trim();
+    const sanitizedTestPatter = testPattern
+      .toString()
+      .replace(/\s/g, '')
+      .trim();
+
+    return (
+      sanitizedValue.includes(sanitizedTestPatter) &&
+      sanitizedValue.indexOf(sanitizedTestPatter) === 0
+    );
   },
 
-  onTxtInputNodeChange: function (event) {
-    let value;
+  onTxtInputNodeInput: function (event) {
+    const value = event.target.value;
 
-    if (event.type === 'paste') {
-      value = (event.clipboardData || window.clipboardData)
-        .getData('text')
-        .trim();
-    } else {
-      value = event.target.value.trim();
-    }
-
-    console.log('changed', event, value);
-
-    const fusionPattern = `{
-      Tools = ordered() {`;
-    const nukePattern = `set cut_paste_input [stack 0]`;
-
-    if (App.matchNodeTest(value, nukePattern)) {
+    if (App.matchNodeTest(value, consts.NUKE_TEST_PATTERN)) {
       App.inputNodeType = 'nuke';
     }
 
-    if (App.matchNodeTest(value, fusionPattern)) {
+    if (App.matchNodeTest(value, consts.FUSION_TEST_PATTERN)) {
       App.inputNodeType = 'fusion';
     }
 
@@ -88,20 +88,19 @@ var App = {
   },
 
   /**
-   * Animates the headers based on the detected input node, works fine for 2 header options but this really isnt scalable
+   * Animates the headers based on the detected input node, works fine for 2 header options but this really isnt scalable.
    */
   animateCardHeaders: function () {
-    console.log({
-      current: App.inputNodeType,
-      previous: App.previousInputNodeType,
-    });
-
+    // only update the UI if there was a change
     if (App.inputNodeType === 'nuke' && App.previousInputNodeType !== 'nuke') {
       App.previousInputNodeType = 'nuke';
       App.nukeInputHeading_show();
-      App.fusionInputHeading_show();
+      App.fusionInputHeading_hide();
+      App.nukeOutputHeading_hide();
+      App.fusionOutputHeading_show();
     }
 
+    // only update the UI if there was a change
     if (
       App.inputNodeType === 'fusion' &&
       App.previousInputNodeType !== 'fusion'
@@ -109,6 +108,8 @@ var App = {
       App.previousInputNodeType = 'fusion';
       App.nukeInputHeading_hide();
       App.fusionInputHeading_show();
+      App.nukeOutputHeading_show();
+      App.fusionOutputHeading_hide();
     }
   },
 
@@ -208,7 +209,7 @@ var App = {
         App.components.txtInputNode.value,
         App.components.txtInputWidth.value,
         App.components.txtInputHeight.value,
-        'nuke'
+        App.inputNodeType
       );
     } else {
       App.errorText_show();
@@ -245,6 +246,28 @@ var App = {
   fusionInputHeading_hide: function () {
     App.oozeStyle(App.components.fusionInputHeading, 'fadeOutUp').then(() => {
       App.components.fusionInputHeading.classList.add('nu-hidden');
+    });
+  },
+
+  nukeOutputHeading_show: function () {
+    App.components.nukeOutputHeading.classList.remove('nu-hidden');
+    App.oozeStyle(App.components.nukeOutputHeading, 'fadeInUp');
+  },
+
+  nukeOutputHeading_hide: function () {
+    App.oozeStyle(App.components.nukeOutputHeading, 'fadeOutUp').then(() => {
+      App.components.nukeOutputHeading.classList.add('nu-hidden');
+    });
+  },
+
+  fusionOutputHeading_show: function () {
+    App.components.fusionOutputHeading.classList.remove('nu-hidden');
+    App.oozeStyle(App.components.fusionOutputHeading, 'fadeInUp');
+  },
+
+  fusionOutputHeading_hide: function () {
+    App.oozeStyle(App.components.fusionOutputHeading, 'fadeOutUp').then(() => {
+      App.components.fusionOutputHeading.classList.add('nu-hidden');
     });
   },
 
