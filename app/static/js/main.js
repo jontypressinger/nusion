@@ -1,6 +1,15 @@
 'use strict';
 
+const consts = Object.freeze({
+  NUKE_TEST_PATTERN: `set cut_paste_input [stack 0]`,
+  FUSION_TEST_PATTERN: `{
+    Tools = ordered() {`,
+});
+
 var App = {
+  previousInputNodeType: 'nuke', // this is a ghetto componentShouldUpdate
+  inputNodeType: 'nuke', // and this is ghetto state
+
   components: {
     btnConvert: document.getElementById('nu-btn-convert'),
     btnClear: document.getElementById('nu-btn-clear'),
@@ -10,6 +19,11 @@ var App = {
     txtInputWidth: document.getElementById('nu-input-width'),
     txtInputHeight: document.getElementById('nu-input-height'),
     errorText: document.getElementById('nu-input-error-text'),
+    nukeInputHeading: document.getElementById('nu-nuke-input-heading'),
+    fusionInputHeading: document.getElementById('nu-fusion-input-heading'),
+    nukeOutputHeading: document.getElementById('nu-nuke-output-heading'),
+    fusionOutputHeading: document.getElementById('nu-fusion-output-heading'),
+    resolutionRow: document.getElementById('nu-resolution-row'),
     body: document.body,
   },
 
@@ -23,7 +37,7 @@ var App = {
     App.matchHeights(
       App.components.txtInputNode,
       App.components.txtOutputNode,
-      55 // makes up for the space created by the resolution row
+      App.outerHeight(App.components.resolutionRow) // makes up for the space created by the resolution row
     );
   },
 
@@ -32,8 +46,71 @@ var App = {
     App.components.btnClear.addEventListener('click', App.onClearClicked);
     App.components.btnCopy.addEventListener('click', App.onCopyClicked);
     App.components.txtInputNode.addEventListener('focus', App.onInputFocus);
+    App.components.txtInputNode.addEventListener(
+      'input',
+      App.onTxtInputNodeInput
+    );
     App.components.txtInputWidth.addEventListener('focus', App.onInputFocus);
     App.components.txtInputHeight.addEventListener('focus', App.onInputFocus);
+  },
+
+  /**
+   * Tests if a one string contains another AND that the test pattern is the start of the value
+   *
+   * @param {String} value
+   * @param {String} testPattern
+   */
+  matchNodeTest(value, testPattern) {
+    const sanitizedValue = value.toString().replace(/\s/g, '').trim();
+    const sanitizedTestPatter = testPattern
+      .toString()
+      .replace(/\s/g, '')
+      .trim();
+
+    return (
+      sanitizedValue.includes(sanitizedTestPatter) &&
+      sanitizedValue.indexOf(sanitizedTestPatter) === 0
+    );
+  },
+
+  onTxtInputNodeInput: function (event) {
+    const value = event.target.value;
+
+    if (App.matchNodeTest(value, consts.NUKE_TEST_PATTERN)) {
+      App.inputNodeType = 'nuke';
+    }
+
+    if (App.matchNodeTest(value, consts.FUSION_TEST_PATTERN)) {
+      App.inputNodeType = 'fusion';
+    }
+
+    App.animateCardHeaders();
+  },
+
+  /**
+   * Animates the headers based on the detected input node, works fine for 2 header options but this really isnt scalable.
+   */
+  animateCardHeaders: function () {
+    // only update the UI if there was a change
+    if (App.inputNodeType === 'nuke' && App.previousInputNodeType !== 'nuke') {
+      App.previousInputNodeType = 'nuke';
+      App.nukeInputHeading_show();
+      App.fusionInputHeading_hide();
+      App.nukeOutputHeading_hide();
+      App.fusionOutputHeading_show();
+    }
+
+    // only update the UI if there was a change
+    if (
+      App.inputNodeType === 'fusion' &&
+      App.previousInputNodeType !== 'fusion'
+    ) {
+      App.previousInputNodeType = 'fusion';
+      App.nukeInputHeading_hide();
+      App.fusionInputHeading_show();
+      App.nukeOutputHeading_show();
+      App.fusionOutputHeading_hide();
+    }
   },
 
   /**
@@ -84,7 +161,7 @@ var App = {
   /**
    * Gets the computed height of an element in px
    *
-   * @param {Element} element
+   * @param {HTMLElement} element
    */
   outerHeight: function (element) {
     var height = element.offsetHeight;
@@ -97,7 +174,7 @@ var App = {
   /**
    * Sets an elements height in pixels
    *
-   * @param {Element} element
+   * @param {HTMLElement} element
    * @param {Number} val
    */
   setHeight: function (element, val) {
@@ -109,11 +186,11 @@ var App = {
   /**
    * Matches the target elements height to the source elements height, can also be tuned with an offset value
    *
-   * @param {Element} source
-   * @param {Element} target
+   * @param {HTMLElement} source
+   * @param {HTMLElement} target
    * @param {Number} offset
    */
-  matchHeights: function (source, target, offset) {
+  matchHeights: function (source, target, offset = 0) {
     const sourceHeight = App.outerHeight(source);
     App.setHeight(target, sourceHeight + offset);
   },
@@ -127,21 +204,116 @@ var App = {
     ];
 
     if (App.isValid(validateInputs)) {
-      App.components.errorText.classList.add('nu-invisible');
+      App.errorText_hide();
       App.convertNode(
         App.components.txtInputNode.value,
         App.components.txtInputWidth.value,
         App.components.txtInputHeight.value,
-        'nuke'
+        App.inputNodeType
       );
     } else {
-      App.components.errorText.classList.remove('nu-invisible');
+      App.errorText_show();
     }
+  },
+
+  errorText_show: function () {
+    App.components.errorText.classList.remove('nu-invisible');
+    App.oozeStyle(App.components.errorText, 'fadeInDown');
+  },
+
+  errorText_hide: function () {
+    App.oozeStyle(App.components.errorText, 'fadeOutUp').then(() => {
+      App.components.errorText.classList.add('nu-invisible');
+    });
+  },
+
+  nukeInputHeading_show: function () {
+    App.components.nukeInputHeading.classList.remove('nu-hidden');
+    App.oozeStyle(App.components.nukeInputHeading, 'fadeInUp');
+  },
+
+  nukeInputHeading_hide: function () {
+    App.oozeStyle(App.components.nukeInputHeading, 'fadeOutUp').then(() => {
+      App.components.nukeInputHeading.classList.add('nu-hidden');
+    });
+  },
+
+  fusionInputHeading_show: function () {
+    App.components.fusionInputHeading.classList.remove('nu-hidden');
+    App.oozeStyle(App.components.fusionInputHeading, 'fadeInUp');
+  },
+
+  fusionInputHeading_hide: function () {
+    App.oozeStyle(App.components.fusionInputHeading, 'fadeOutUp').then(() => {
+      App.components.fusionInputHeading.classList.add('nu-hidden');
+    });
+  },
+
+  nukeOutputHeading_show: function () {
+    App.components.nukeOutputHeading.classList.remove('nu-hidden');
+    App.oozeStyle(App.components.nukeOutputHeading, 'fadeInUp');
+  },
+
+  nukeOutputHeading_hide: function () {
+    App.oozeStyle(App.components.nukeOutputHeading, 'fadeOutUp').then(() => {
+      App.components.nukeOutputHeading.classList.add('nu-hidden');
+    });
+  },
+
+  fusionOutputHeading_show: function () {
+    App.components.fusionOutputHeading.classList.remove('nu-hidden');
+    App.oozeStyle(App.components.fusionOutputHeading, 'fadeInUp');
+  },
+
+  fusionOutputHeading_hide: function () {
+    App.oozeStyle(App.components.fusionOutputHeading, 'fadeOutUp').then(() => {
+      App.components.fusionOutputHeading.classList.add('nu-hidden');
+    });
+  },
+
+  /**
+   * Helper method to manage animations provided by Animate.css
+   *
+   * @param {HTMLElement} element
+   * @param {String} animation - see homepage for options https://animate.style/
+   * @param {String} prefix
+   * @param {String} speed - slow, slower, fast, faster
+   */
+  oozeStyle: function (
+    element,
+    animation,
+    prefix = 'animate__',
+    speed = 'faster'
+  ) {
+    return new Promise((resolve) => {
+      const animationName = `${prefix}${animation}`;
+
+      element.classList.add(
+        `${prefix}animated`,
+        animationName,
+        `${prefix}${speed}`
+      );
+
+      // animation ended - clean the classes and resolve the Promise and remove event listener
+      function handleAnimationEnd() {
+        element.classList.remove(
+          `${prefix}animated`,
+          animationName,
+          `${prefix}${speed}`
+        );
+
+        element.removeEventListener('animationend', handleAnimationEnd);
+
+        resolve();
+      }
+
+      element.addEventListener('animationend', handleAnimationEnd);
+    });
   },
 
   onClearClicked: function (e) {
     e.preventDefault();
-    App.components.errorText.classList.add('nu-invisible');
+    App.errorText_hide();
     App.components.txtOutputNode.value = '';
     App.components.txtInputNode.value = '';
     App.components.txtInputNode.focus();

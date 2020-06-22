@@ -19,7 +19,16 @@
   "keywords": [
     "nusion"
   ],
-  "author": "jontypressinger.co.za",
+  "author": {
+    "name": "Jonty Pressinger",
+    "url": "http://jontypressinger.co.za/"
+  },
+  "contributors": [
+    {
+      "name": "Kyle Vermeulen",
+      "email": "kyle@source-lab.co.za"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ontyj/nusion/issues"
