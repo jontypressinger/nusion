@@ -1,6 +1,9 @@
 'use strict';
 
 var App = {
+  previousInputNodeType: 'nuke', // this is a ghetto componentShouldUpdate
+  inputNodeType: 'nuke', // and this is ghetto state
+
   components: {
     btnConvert: document.getElementById('nu-btn-convert'),
     btnClear: document.getElementById('nu-btn-clear'),
@@ -10,6 +13,8 @@ var App = {
     txtInputWidth: document.getElementById('nu-input-width'),
     txtInputHeight: document.getElementById('nu-input-height'),
     errorText: document.getElementById('nu-input-error-text'),
+    nukeInputHeading: document.getElementById('nu-nuke-input-heading'),
+    fusionInputHeading: document.getElementById('nu-fusion-input-heading'),
     body: document.body,
   },
 
@@ -32,8 +37,79 @@ var App = {
     App.components.btnClear.addEventListener('click', App.onClearClicked);
     App.components.btnCopy.addEventListener('click', App.onCopyClicked);
     App.components.txtInputNode.addEventListener('focus', App.onInputFocus);
+    // App.components.txtInputNode.addEventListener(
+    //   'keyup',
+    //   App.onTxtInputNodeChange
+    // );
+    App.components.txtInputNode.addEventListener(
+      'paste',
+      App.onTxtInputNodeChange
+    );
     App.components.txtInputWidth.addEventListener('focus', App.onInputFocus);
     App.components.txtInputHeight.addEventListener('focus', App.onInputFocus);
+  },
+
+  /**
+   * Tests if a one string contains another AND that the test pattern is the start of the value
+   *
+   * @param {String} value
+   * @param {String} testPattern
+   */
+  matchNodeTest(value, testPattern) {
+    return value.includes(testPattern) && value.indexOf(testPattern) === 0;
+  },
+
+  onTxtInputNodeChange: function (event) {
+    let value;
+
+    if (event.type === 'paste') {
+      value = (event.clipboardData || window.clipboardData)
+        .getData('text')
+        .trim();
+    } else {
+      value = event.target.value.trim();
+    }
+
+    console.log('changed', event, value);
+
+    const fusionPattern = `{
+      Tools = ordered() {`;
+    const nukePattern = `set cut_paste_input [stack 0]`;
+
+    if (App.matchNodeTest(value, nukePattern)) {
+      App.inputNodeType = 'nuke';
+    }
+
+    if (App.matchNodeTest(value, fusionPattern)) {
+      App.inputNodeType = 'fusion';
+    }
+
+    App.animateCardHeaders();
+  },
+
+  /**
+   * Animates the headers based on the detected input node, works fine for 2 header options but this really isnt scalable
+   */
+  animateCardHeaders: function () {
+    console.log({
+      current: App.inputNodeType,
+      previous: App.previousInputNodeType,
+    });
+
+    if (App.inputNodeType === 'nuke' && App.previousInputNodeType !== 'nuke') {
+      App.previousInputNodeType = 'nuke';
+      App.nukeInputHeading_show();
+      App.fusionInputHeading_show();
+    }
+
+    if (
+      App.inputNodeType === 'fusion' &&
+      App.previousInputNodeType !== 'fusion'
+    ) {
+      App.previousInputNodeType = 'fusion';
+      App.nukeInputHeading_hide();
+      App.fusionInputHeading_show();
+    }
   },
 
   /**
@@ -84,7 +160,7 @@ var App = {
   /**
    * Gets the computed height of an element in px
    *
-   * @param {Element} element
+   * @param {HTMLElement} element
    */
   outerHeight: function (element) {
     var height = element.offsetHeight;
@@ -97,7 +173,7 @@ var App = {
   /**
    * Sets an elements height in pixels
    *
-   * @param {Element} element
+   * @param {HTMLElement} element
    * @param {Number} val
    */
   setHeight: function (element, val) {
@@ -109,11 +185,11 @@ var App = {
   /**
    * Matches the target elements height to the source elements height, can also be tuned with an offset value
    *
-   * @param {Element} source
-   * @param {Element} target
+   * @param {HTMLElement} source
+   * @param {HTMLElement} target
    * @param {Number} offset
    */
-  matchHeights: function (source, target, offset) {
+  matchHeights: function (source, target, offset = 0) {
     const sourceHeight = App.outerHeight(source);
     App.setHeight(target, sourceHeight + offset);
   },
@@ -127,7 +203,7 @@ var App = {
     ];
 
     if (App.isValid(validateInputs)) {
-      App.components.errorText.classList.add('nu-invisible');
+      App.errorText_hide();
       App.convertNode(
         App.components.txtInputNode.value,
         App.components.txtInputWidth.value,
@@ -135,13 +211,86 @@ var App = {
         'nuke'
       );
     } else {
-      App.components.errorText.classList.remove('nu-invisible');
+      App.errorText_show();
     }
+  },
+
+  errorText_show: function () {
+    App.components.errorText.classList.remove('nu-invisible');
+    App.oozeStyle(App.components.errorText, 'fadeInDown');
+  },
+
+  errorText_hide: function () {
+    App.oozeStyle(App.components.errorText, 'fadeOutUp').then(() => {
+      App.components.errorText.classList.add('nu-invisible');
+    });
+  },
+
+  nukeInputHeading_show: function () {
+    App.components.nukeInputHeading.classList.remove('nu-hidden');
+    App.oozeStyle(App.components.nukeInputHeading, 'fadeInUp');
+  },
+
+  nukeInputHeading_hide: function () {
+    App.oozeStyle(App.components.nukeInputHeading, 'fadeOutUp').then(() => {
+      App.components.nukeInputHeading.classList.add('nu-hidden');
+    });
+  },
+
+  fusionInputHeading_show: function () {
+    App.components.fusionInputHeading.classList.remove('nu-hidden');
+    App.oozeStyle(App.components.fusionInputHeading, 'fadeInUp');
+  },
+
+  fusionInputHeading_hide: function () {
+    App.oozeStyle(App.components.fusionInputHeading, 'fadeOutUp').then(() => {
+      App.components.fusionInputHeading.classList.add('nu-hidden');
+    });
+  },
+
+  /**
+   * Helper method to manage animations provided by Animate.css
+   *
+   * @param {HTMLElement} element
+   * @param {String} animation - see homepage for options https://animate.style/
+   * @param {String} prefix
+   * @param {String} speed - slow, slower, fast, faster
+   */
+  oozeStyle: function (
+    element,
+    animation,
+    prefix = 'animate__',
+    speed = 'faster'
+  ) {
+    return new Promise((resolve) => {
+      const animationName = `${prefix}${animation}`;
+
+      element.classList.add(
+        `${prefix}animated`,
+        animationName,
+        `${prefix}${speed}`
+      );
+
+      // animation ended - clean the classes and resolve the Promise and remove event listener
+      function handleAnimationEnd() {
+        element.classList.remove(
+          `${prefix}animated`,
+          animationName,
+          `${prefix}${speed}`
+        );
+
+        element.removeEventListener('animationend', handleAnimationEnd);
+
+        resolve();
+      }
+
+      element.addEventListener('animationend', handleAnimationEnd);
+    });
   },
 
   onClearClicked: function (e) {
     e.preventDefault();
-    App.components.errorText.classList.add('nu-invisible');
+    App.errorText_hide();
     App.components.txtOutputNode.value = '';
     App.components.txtInputNode.value = '';
     App.components.txtInputNode.focus();

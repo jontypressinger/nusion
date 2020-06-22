@@ -52,6 +52,10 @@ body {
   display: none;
 }
 
+.nu-absolute {
+  position: absolute;
+}
+
 .nu-invisible {
   visibility: hidden;
 }
@@ -84,4 +88,12 @@ body {
 
 .nu-footer-list li:first-child::before {
   content: '';
+}
+
+.nu-card-header-container {
+  height: 33px;
+}
+
+.nu-card-header-container .uk-legend {
+  width: auto;
 }

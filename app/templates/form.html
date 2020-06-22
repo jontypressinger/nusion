@@ -6,6 +6,7 @@
     <title>Nusion Converter</title>
     <link rel="icon" type="image/svg" href="{{ url_for('static', filename='images/favicon.svg') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
@@ -24,8 +25,9 @@
                 <div class="uk-width-1-2@s">
                     <div class="uk-background-muted uk-padding">
                         <form class="uk-grid-small" uk-grid>
-                            <div class="uk-width-1-1@s">
-                                <legend class="uk-legend">Nuke</legend>
+                            <div class="uk-width-1-1@s nu-card-header-container">
+                                <legend id="nu-nuke-input-heading" class="uk-legend uk-heading-bullet nu-absolute">Nuke</legend>
+                                <legend id="nu-fusion-input-heading" class="uk-legend uk-heading-bullet nu-absolute nu-hidden">Fusion</legend>
                             </div>
 
                             <div>
@@ -49,9 +51,10 @@
                             </div>
 
                             <div class="uk-width-1-1">
-                                <textarea id="nu-input-node" class="uk-textarea nu-resize-none" placeholder="Paste Nuke node here"></textarea>
-                                <span id="nu-input-error-text" class="uk-text-small uk-text-italic uk-text-danger nu-error-text nu-invisible">Please fill in all the required form fields.</span>
+                                <textarea id="nu-input-node" class="uk-textarea nu-resize-none" placeholder="Paste Nuke or Fusion node here"></textarea>
                             </div>
+                            
+                            <span id="nu-input-error-text" class="uk-text-small uk-text-italic uk-text-danger nu-error-text nu-invisible">Please fill in all the required form fields.</span>
 
                             <div class="uk-width-1-1">
                                 <button id="nu-btn-convert" class="uk-button uk-button-secondary">Convert</button>
@@ -65,14 +68,17 @@
                     <div class="uk-background-muted uk-padding">
                         <form class="uk-grid-small" uk-grid>
                             <div class="uk-width-1-1@s">
-                                <legend class="uk-legend">Fusion</legend>
+                                <!-- <legend class="uk-legend uk-heading-bullet">Nuke</legend> -->
+                                <legend class="uk-legend uk-heading-bullet">Fusion</legend>
                             </div>
 
                             <div class="uk-width-1-1">
                                 <textarea id="nu-output-node" class="uk-textarea nu-resize-none" placeholder="Fusion node will appear here"></textarea>
-                                <span id="nu-output-error-text" class="uk-text-small uk-text-italic uk-text-danger nu-invisible">123</span>
                             </div>
 
+                            <!-- TODO: we can use this space to prompt for conversion report -->
+                            <span id="nu-output-error-text" class="uk-text-small uk-text-italic uk-text-danger nu-error-text nu-invisible">&nbsp;</span>
+                            
                             <div class="uk-width-1-1">
                                 <button id="nu-btn-copy" class="uk-button uk-button-default">Copy to Clipboard</button>
                                 <span class="uk-text-small uk-text-italic uk-text-danger nu-error-text nu-invisible"></span>
