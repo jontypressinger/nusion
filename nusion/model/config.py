@@ -29,6 +29,7 @@ NUKE_BASE_ATTRIBUTES = [
 
 NUKE_IGNORE_ATTRIBUTES = [
     "selected",
+    "channel", #duplicate of "channels"
         ]
 
 
