@@ -62,14 +62,14 @@ var App = {
    */
   matchNodeTest(value, testPattern) {
     const sanitizedValue = value.toString().replace(/\s/g, '').trim();
-    const sanitizedTestPatter = testPattern
+    const sanitizedTestPattern = testPattern
       .toString()
       .replace(/\s/g, '')
       .trim();
 
     return (
-      sanitizedValue.includes(sanitizedTestPatter) &&
-      sanitizedValue.indexOf(sanitizedTestPatter) === 0
+      sanitizedValue.includes(sanitizedTestPattern) &&
+      sanitizedValue.indexOf(sanitizedTestPattern) === 0
     );
   },
 
