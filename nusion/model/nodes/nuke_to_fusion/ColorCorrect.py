@@ -10,7 +10,18 @@ def convert(node):
     fusion_effect_attribs = {}
     nuke_effect_attribs = node.effect_attribs
 
-    fusion_effect_attribs[0] = "This is currently a placeholder effect."
+    for knob in nuke_effect_attribs:
+        value = nuke_effect_attribs[knob]
+
+        if knob == "gain":
+            if value.startswith("{"): # Multiple channels
+                split_value = value.replace("{", "").replace("}", "").split(" ")
+                fusion_effect_attribs["MasterRedGain"] = f"Input {{Value = {split_value[1]}, }}"
+                fusion_effect_attribs["MasterGreenGain"] = f"Input {{Value = {split_value[2]}, }}"
+                fusion_effect_attribs["MasterBlueGain"] = f"Input {{Value = {split_value[3]}, }}"
+            else: #Master channel
+                fusion_effect_attribs["MasterRGBGain"] = f"Input {{Value = {value}, }}"
+
     return fusion_effect_attribs
 
 if __name__ == '__main__':
