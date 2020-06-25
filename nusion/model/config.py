@@ -1,3 +1,15 @@
+"""
+Configuration file
+"""
+
+NUKE_TO_FUSION_NODE_NAMES = {
+    "Blur": "Blur",
+    "ColorCorrect": "ColorCorrector",
+    }
+
+#Invert NUKE_TO_FUSION dict
+FUSION_TO_NUKE_NODE_NAMES = {v: k for k, v in NUKE_TO_FUSION_NODE_NAMES.items()}
+
 ############
 ### NUKE ###
 ############

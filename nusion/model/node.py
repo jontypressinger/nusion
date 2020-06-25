@@ -81,7 +81,8 @@ class NukeNode(Node):
             raise ValueError("Expected node from 'nuke' got '{}' instead".format(self.software))
 
         converted_base_attribs, converted_effect_attribs = nuke_to_fusion.convert(self)
-        return FusionNode(self.effect, \
+        converted_effect = config.NUKE_TO_FUSION_NODE_NAMES[self.effect]
+        return FusionNode(converted_effect, \
             converted_base_attribs, \
             converted_effect_attribs, \
             self.resolution)
