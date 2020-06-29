@@ -21,7 +21,7 @@ def convert(node):
                 fusion_effect_attribs["MasterBlueGain"] = f"Input {{Value = {split_value[3]}, }}"
             else: #Master channel
                 fusion_effect_attribs["MasterRGBGain"] = f"Input {{Value = {value}, }}"
-  
+
         if ".gain" in knob:
             #TODO: Raise warning about ranges curve making this conversion not 100% accurate.
             fusion_knob = knob.split(".")[0].capitalize()
@@ -29,9 +29,12 @@ def convert(node):
                 fusion_knob = "MidTones" #Exception for Fusion's weird capitalisation
             if value.startswith("{"): # Multiple channels
                 split_value = value.replace("{", "").replace("}", "").split(" ")
-                fusion_effect_attribs[f"{fusion_knob}RedGain"] = f"Input {{Value = {split_value[1]}, }}"
-                fusion_effect_attribs[f"{fusion_knob}GreenGain"] = f"Input {{Value = {split_value[2]}, }}"
-                fusion_effect_attribs[f"{fusion_knob}BlueGain"] = f"Input {{Value = {split_value[3]}, }}"
+                fusion_effect_attribs[f"{fusion_knob}RedGain"] = \
+                    f"Input {{Value = {split_value[1]}, }}"
+                fusion_effect_attribs[f"{fusion_knob}GreenGain"] = \
+                    f"Input {{Value = {split_value[2]}, }}"
+                fusion_effect_attribs[f"{fusion_knob}BlueGain"] = \
+                    f"Input {{Value = {split_value[3]}, }}"
             else: #Master channel
                 fusion_effect_attribs[f"{fusion_knob}RGBGain"] = f"Input {{Value = {value}, }}"
 
