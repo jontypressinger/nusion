@@ -15,6 +15,8 @@ def convert(node):
     fusion_effect_attribs["Width"] = f"Input {{Value = {node.root_width}, }}"
     fusion_effect_attribs["Height"] = f"Input {{Value = {node.root_height}, }}"
 
+    shutter_offset = "None"
+
     for knob in nuke_effect_attribs:
         value = nuke_effect_attribs[knob]
 
@@ -97,6 +99,31 @@ def convert(node):
 
             if filter_selection != "None":
                 fusion_effect_attribs["FilterMethod"] = f"Input {{Value = {filter_selection}, }}"
+
+        if knob == "motionblur":
+            fusion_effect_attribs["MotionBlur"] = "Input {Value = 1, }"
+            fusion_effect_attribs["Quality"] = f"Input {{ Value = {value}, }}"
+            shutter_offset = "-1.0" # Nuke's default
+
+        if knob == "shutteroffset":
+            if value == "start":
+                shutter_offset = "-1.0"
+
+            if value == "end":
+                shutter_offset = "1.0"
+
+            if value == "centred":
+                shutter_offset = "0"
+
+        if knob == "shuttercustomoffset":
+            shutter_offset = value
+
+        if shutter_offset != "None":
+            fusion_effect_attribs["CenterBias"] = f"Input {{Value = {shutter_offset}, }}"
+
+        if knob == "shutter":
+            shutter_degrees = float(value) * 360
+            fusion_effect_attribs["ShutterAngle"] = f"Input {{ Value = {shutter_degrees}, }}"
 
         if knob in ("skew", "skew_order"):
             # The default transform doesn't support this.
