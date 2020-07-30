@@ -5,6 +5,7 @@ Configuration file
 NUKE_TO_FUSION_NODE_NAMES = {
     "Blur": "Blur",
     "ColorCorrect": "ColorCorrector",
+    "Transform": "Transform",
     }
 
 #Invert NUKE_TO_FUSION dict
