@@ -27,13 +27,14 @@ def convert(node):
                 fusion_effect_attribs["ProcessGreen"] = "Input {Value = 0, }"
                 fusion_effect_attribs["ProcessBlue"] = "Input {Value = 0, }"
             if value.startswith("{"): #individual channels selected
+                fusion_effect_attribs["ProcessAlpha"] = "Input {Value = 1, }"
                 if "-rgba.red" in value:
                     fusion_effect_attribs["ProcessRed"] = "Input {Value = 0, }"
                 if "-rgba.green" in value:
                     fusion_effect_attribs["ProcessGreen"] = "Input {Value = 0, }"
                 if "-rgba.blue" in value:
                     fusion_effect_attribs["ProcessBlue"] = "Input {Value = 0, }"
-                if "-rgba.alpha" in value:
+                if "-rgba.alpha" in value or "rgba.alpha" not in value:
                     fusion_effect_attribs["ProcessAlpha"] = "Input {Value = 0, }"
 
         if knob == "label":
