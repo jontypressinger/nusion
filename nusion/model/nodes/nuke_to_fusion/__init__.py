@@ -7,7 +7,8 @@ from nusion.model.nodes.nuke_to_fusion import   BaseAttributes, \
                                                 CommonAttributes, \
                                                 Blur, \
                                                 ColorCorrect, \
-                                                Transform
+                                                Transform, \
+                                                Invert
 
 def convert(node):
     """ List of effect conversion functions """
@@ -23,5 +24,8 @@ def convert(node):
 
     if node.effect == "Transform":
         return base_attribs, {**common_attribs, **Transform.convert(node)}
+
+    if node.effect == "Invert":
+        return base_attribs, {**common_attribs, **Invert.convert(node)}
 
     raise ValueError("Node effect '{0}' not currently supported.".format(node.effect))
