@@ -7,6 +7,7 @@ NUKE_TO_FUSION_NODE_NAMES = {
     "ColorCorrect": "ColorCorrector",
     "Transform": "Transform",
     "Invert": "ChannelBoolean",
+    "Premult": "AlphaMultiply"
     }
 
 #Invert NUKE_TO_FUSION dict

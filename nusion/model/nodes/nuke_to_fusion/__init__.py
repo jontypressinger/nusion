@@ -8,7 +8,8 @@ from nusion.model.nodes.nuke_to_fusion import   BaseAttributes, \
                                                 Blur, \
                                                 ColorCorrect, \
                                                 Transform, \
-                                                Invert
+                                                Invert, \
+                                                Premult
 
 def convert(node):
     """ List of effect conversion functions """
@@ -27,5 +28,8 @@ def convert(node):
 
     if node.effect == "Invert":
         return base_attribs, {**common_attribs, **Invert.convert(node)}
+
+    if node.effect == "Premult":
+        return base_attribs, {**common_attribs, **Premult.convert(node)}
 
     raise ValueError("Node effect '{0}' not currently supported.".format(node.effect))
